@@ -1,42 +1,50 @@
-# Agentic-Reasoning Dev Guide
+# Agentic-Reasoning Master Guide
 
-## Development Priorities
-- IMPORTANT: Follow the structured roadmap in CODEBASE_IMPROVEMENT_ROADMAP.md
-- Do not proceed to next phase until success criteria are met
-- Focus on completing Phase 1 (Session Management & Configuration) first
-- All changes must align with the roadmap's principles and guidelines
+## Current Status
+This codebase is a merged repository from three separate Agentic-Reasoning/Codepilot projects.
+Currently addressing import and dependency issues before full functionality.
 
 ## Build/Test/Lint Commands
-- Run all tests: `pytest -v agentic_research`
-- Run single test: `pytest -v agentic_research/path/to/test.py::test_function_name`
 - Install package: `pip install -e .`
-- Start application: `python scripts/run_agentic_reason.py --bing_subscription_key <key> --remote_model gpt-4o`
-- Start server: `python -m uvicorn backend.server:app --reload`
+- Fix import issues: `export PYTHONPATH=$PYTHONPATH:$(pwd)`
+- Run tests: `pytest -v agentic_research` or specific: `pytest -v scripts/test_agentic_reasoning.py`
+- Start backend server: `python -m uvicorn backend.server:app --reload`
+- Start CLI: `python scripts/run_agentic_reason.py --remote_model gpt-4o`
+- Frontend dev: `cd frontend && npm run dev`
 
 ## Environment Setup
-- Use conda: `conda env create -f environment.yml && conda activate agentic_reasoning`
-- Required API keys: OPENAI_API_KEY, YDC_API_KEY, BING_API_KEY, JINA_API_KEY
+- Python 3.11.10: `conda env create -f environment.yml && conda activate agentic_reasoning`
+- Required API keys in .env: OPENAI_API_KEY, BING_API_KEY, GEMINI_API_KEY, JINA_API_KEY
+- Feature flags: USE_STORM, USE_AGENTIC_ENCODER, USE_SEMANTIC_ANALYSIS, USE_MCP
+- See INTEGRATION_GUIDE.md and DATACLASS_MIGRATION_GUIDE.md for dependency fixes
+
+## Architecture Components
+- Backend: FastAPI server with agent orchestration (coder, planner, orchestrator agents)
+- Frontend: Svelte-based UI for interaction
+- Core: agentic_research/ modules for reasoning and collaboration
+- Search Agent: Web search with Bing API and content extraction
+- Code Agent: Code generation and execution
+- GraphRAG: Mind map for knowledge storage and retrieval
+- STORM Orchestration: Multi-expert agent collaboration
 
 ## Integration Features
-- Semantic search/analysis: `export USE_AGENTIC_ENCODER=true USE_SEMANTIC_ANALYSIS=true`
-- StormOrchestrator: `export USE_STORM=true` (API: `{"config": {"use_storm": true}}`)
-- Embedding models: `export ENCODER_API_TYPE=openai OPENAI_EMBEDDING_MODEL=text-embedding-3-small`
-- Ollama integration: `export USE_OLLAMA=true OLLAMA_MODEL=llama3`
-- MCP: `export USE_MCP=true MCP_PRIMARY_PROVIDER=openai MCP_PRIMARY_MODEL=gpt-4o`
+- Semantic search: `export USE_AGENTIC_ENCODER=true USE_SEMANTIC_ANALYSIS=true`
+- Multi-expert agents: `export USE_STORM=true` (API: `{"config": {"use_storm": true}}`)
+- Multi-provider LLM: `export USE_MCP=true MCP_PRIMARY_PROVIDER=openai MCP_PRIMARY_MODEL=gpt-4o`
+- Local inference: `export USE_OLLAMA=true OLLAMA_MODEL=llama3`
 
 ## Code Style Guidelines
 - PEP 8 conventions with 88 char line length
-- Type hints required for all function parameters and return values
+- Type hints for all function parameters and return values
 - Naming: PascalCase (classes), snake_case (functions/variables), UPPER_CASE (constants)
-- Imports: Use relative imports within packages
-- Error handling: Use try/except with specific exceptions (not bare except)
-- Formatting: Use f-strings for string formatting
+- Imports: Use relative imports within packages, standard library first
+- Error handling: Specific exceptions, never use bare except
 - Documentation: Docstrings for all public functions and classes
 
-## Architecture Principles
-- Single Responsibility: Each class/module should have one reason to change
-- Dependency Injection: Pass dependencies to classes rather than creating internally
-- Configuration Centralization: No direct environment variable access in business logic
-- Error Recovery: Design for resilience with proper error handling
-- State Management: Maintain consistent state across user sessions and reconnections
-- Testing: Write tests before implementing new features or significant changes
+## Implementation Priorities
+1. Persistent session storage (SQLite/Redis/PostgreSQL)
+2. Memory management for large structures
+3. Centralized environment configuration
+4. Error recovery and state persistence
+5. WebSocket connection for continuous orchestration
+6. See IMPLEMENTATION_PREREQUISITES.md for details

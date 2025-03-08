@@ -16,3 +16,16 @@ pathspec
 #scikit-learn
 chromadb
 backoff
+langchain
+toml
+trafilatura
+langchain_text_splitters
+qdrant_client
+langchain_qdrant
+langchain_huggingface
+pandas
+duckduckgo_search
+tavily-python
+google-api-python-client
+azure-search-documents
+azure-core
