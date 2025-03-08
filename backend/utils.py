@@ -1,4 +1,5 @@
 import os
+import time
 import chromadb
 from chromadb.config import Settings
 from chromadb.utils import embedding_functions
@@ -19,6 +20,25 @@ else:
 _index_cache = None
 _last_index_update = 0
 _INDEX_CACHE_TTL = 300  # 5 minutes
+
+def ensure_imports(fn):
+    """Decorator to ensure that commonly used modules are imported before function execution.
+    This helps prevent 'name X is not defined' errors for fundamental modules."""
+    def wrapper(*args, **kwargs):
+        # List of modules that are commonly used but sometimes forgotten to import
+        common_modules = ["time", "json", "os", "sys", "re"]
+        globals_dict = fn.__globals__
+        
+        # Import any missing modules into the function's global namespace
+        for module_name in common_modules:
+            if module_name not in globals_dict:
+                try:
+                    globals_dict[module_name] = __import__(module_name)
+                except ImportError:
+                    pass  # Skip if the module can't be imported
+        
+        return fn(*args, **kwargs)
+    return wrapper
 
 def _get_gitignore_spec(root_directory: str):
     """Build a PathSpec from all .gitignore files in the directory tree."""
@@ -67,9 +87,14 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> List[str
     return chunks
 
 
+@ensure_imports
 def _build_search_index(root_directory: str):
     """Build or rebuild the ChromaDB search index."""
     from chromadb.utils import embedding_functions
+    # Explicitly import modules that might be needed
+    import time
+    import json
+    import re
 
     global _index_cache, _last_index_update
     
@@ -122,10 +147,16 @@ def _build_search_index(root_directory: str):
     return collection
 
 
+@ensure_imports
 def get_relevant_snippets(search_terms: str, root_directory: str, top_k: int = 5) -> List[Dict[str, str]]:
     """Get relevant code snippets using ChromaDB with semantic search."""
     global _index_cache, _last_index_update
 
+    # Explicitly import common modules to avoid 'undefined' errors
+    import time
+    import json
+    import re
+    
     current_time = time.time()
     if _index_cache is None or (current_time - _last_index_update) > _INDEX_CACHE_TTL:
         _index_cache = _build_search_index(root_directory)

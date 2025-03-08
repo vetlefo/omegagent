@@ -1,8 +1,12 @@
 import dspy
 import os
 import json
+import time
+import sys
+import re
 from dataclasses import dataclass, field
 from typing import Optional, List, Dict, Any
+from backend.utils import ensure_imports
 
 try:
     from scripts.tools.bing_search import bing_web_search, extract_relevant_info
@@ -107,6 +111,7 @@ class CoderAgent:
                 self.logger.error(f"All code generation methods failed: {e}")
             return f"# Error generating code: {e}\n\n# Placeholder implementation\ndef placeholder():\n    pass"
 
+    @ensure_imports
     def _search_relevant_info(self, query: str) -> List[str]:
         """Use BingSearch tool to fetch relevant information."""
         try:

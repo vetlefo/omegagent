@@ -1,6 +1,10 @@
 from typing import List, Any, Dict, Optional
 import asyncio
 import os
+import time
+import json
+import sys
+import re
 from agentic_research.collaborative_storm.modules.callback import BaseCallbackHandler
 # Fix for the missing RunResult import
 from pydantic_ai.result import FinalResult as RunResult
@@ -10,7 +14,7 @@ from pydantic_ai.models.openai import OpenAIModel
 from pydantic_ai.result import RunContext
 from backend.agents.planner_agent import PlannerAgent, Plan
 from backend.agents.coder_agent import CoderAgent, FullCodeUpdates
-from backend.utils import build_full_context, get_file_content, get_relevant_snippets
+from backend.utils import build_full_context, get_file_content, get_relevant_snippets, ensure_imports
 from backend.agents.utils import send_usage
 from backend.repo_map import RepoMap
 from backend.models.shared import RelevantFiles, RelevantFile
@@ -359,10 +363,15 @@ class StormOrchestratorAgent:
             content = get_file_content(file_path, root_directory=self.root_directory)
             return content
 
+        @ensure_imports
         async def search_tool(ctx: RunContext[str], search_terms: str) -> List[Dict[str, str]]:
             """Searches the codebase for the given search terms and returns relevant snippets with filenames."""
             await self.comm.send("log", f"[Tool Call: search] with search_terms: {search_terms}")
             try:
+                # Ensure time is explicitly imported in this context
+                import time
+                import json
+                import re
                 snippets = await asyncio.to_thread(get_relevant_snippets, search_terms, self.root_directory)
                 await self.comm.send("log", f"[Tool Call: search] found {len(snippets)} snippets.")
                 return snippets
