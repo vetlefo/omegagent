@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d7" for="edge" attr.name="order" attr.type="long" />
+  <key id="d6" for="edge" attr.name="source_id" attr.type="string" />
+  <key id="d5" for="edge" attr.name="description" attr.type="string" />
+  <key id="d4" for="edge" attr.name="weight" attr.type="double" />
+  <key id="d3" for="node" attr.name="clusters" attr.type="string" />
+  <key id="d2" for="node" attr.name="source_id" attr.type="string" />
+  <key id="d1" for="node" attr.name="description" attr.type="string" />
+  <key id="d0" for="node" attr.name="entity_type" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="&quot;AMAZON&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Amazon is an American multinational technology company that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. It is one of the Big Five companies in the U.S. information technology industry."</data>
+      <data key="d2">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;JEFF BEZOS&quot;">
+      <data key="d0">"PERSON"</data>
+      <data key="d1">"Jeff Bezos is the founder of Amazon, having started the company from his garage in Bellevue, Washington, on July 5, 1994."</data>
+      <data key="d2">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;BELLEVUE, WASHINGTON&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"Bellevue, Washington is the location where Jeff Bezos founded Amazon, marking its geographical origin."</data>
+      <data key="d2">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;JULY 5, 1994&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"July 5, 1994 is the date when Amazon was founded by Jeff Bezos."</data>
+      <data key="d2">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;GOOGLE&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Google is a major American technology company involved in internet-related services and products, and is one of the Big Five companies in the U.S. information technology industry."</data>
+      <data key="d2">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+    </node>
+    <node id="&quot;APPLE&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Apple Inc. is an American multinational technology company that designs, manufactures, and markets a range of consumer electronics, holding a position among the Big Five tech companies."</data>
+      <data key="d2">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+    </node>
+    <node id="&quot;MICROSOFT&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Microsoft Corporation is a leading global technology company known for software products like Windows, and is one of the Big Five companies in the U.S. tech industry."</data>
+      <data key="d2">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+    </node>
+    <node id="&quot;FACEBOOK&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Facebook is a social media giant and technology company, recognized as one of the Big Five companies in the U.S. information technology industry."</data>
+      <data key="d2">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+    </node>
+    <edge source="&quot;AMAZON&quot;" target="&quot;JEFF BEZOS&quot;">
+      <data key="d4">9.0</data>
+      <data key="d5">"Jeff Bezos founded Amazon, indicating a direct connection between the person and the organization."</data>
+      <data key="d6">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d7">1</data>
+    </edge>
+    <edge source="&quot;AMAZON&quot;" target="&quot;BELLEVUE, WASHINGTON&quot;">
+      <data key="d4">7.0</data>
+      <data key="d5">"Amazon was founded in Bellevue, Washington, which is its place of origin."</data>
+      <data key="d6">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d7">1</data>
+    </edge>
+    <edge source="&quot;AMAZON&quot;" target="&quot;JULY 5, 1994&quot;">
+      <data key="d4">8.0</data>
+      <data key="d5">"July 5, 1994 is the significant date of Amazon's founding."</data>
+      <data key="d6">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d7">1</data>
+    </edge>
+    <edge source="&quot;JEFF BEZOS&quot;" target="&quot;BELLEVUE, WASHINGTON&quot;">
+      <data key="d4">6.0</data>
+      <data key="d5">"Jeff Bezos started Amazon in Bellevue, Washington, linking his entrepreneurial activities to this location."</data>
+      <data key="d6">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d7">1</data>
+    </edge>
+    <edge source="&quot;JEFF BEZOS&quot;" target="&quot;JULY 5, 1994&quot;">
+      <data key="d4">8.0</data>
+      <data key="d5">"Jeff Bezos founded Amazon on July 5, 1994, establishing a historical connection between the person and the event."</data>
+      <data key="d6">chunk-ca9aaa2084f8c42fdf3e800db762baf6</data>
+      <data key="d7">1</data>
+    </edge>
+  </graph>
+</graphml>

@@ -3,14 +3,11 @@ import chromadb
 from chromadb.config import Settings
 from chromadb.utils import embedding_functions
 from backend.models.shared import RelevantFiles
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Set, Optional, Union
 import time
 from pathspec import PathSpec
 from pathspec.patterns import GitWildMatchPattern
 import logging
-import glob
-import json
-from backend.agents.models import CodeChunkUpdate
 import threading
 import backoff
 
@@ -35,7 +32,7 @@ def _get_gitignore_spec(root_directory: str) -> PathSpec:
                 with open(gitignore_path, 'r') as f:
                     patterns = f.readlines()
                     gitignore_patterns.extend(p.strip() for p in patterns if p.strip() and not p.startswith('#'))
-            except:
+            except Exception:  # We want to continue even if a gitignore file can't be read
                 pass
                 
         parent_dir = os.path.dirname(current_dir)
@@ -131,7 +128,7 @@ def get_file_content(file_path: str, root_directory: str = None) -> str:
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             return f.read()
-    except Exception as e:
+    except Exception:
         return ""
 
 def _build_search_index(root_directory: str) -> SearchIndex:

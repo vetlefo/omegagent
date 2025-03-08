@@ -1,0 +1,3 @@
+Ignore temp files and OS generated files
+
+*~ *.swp *.DS_Store .vscode/

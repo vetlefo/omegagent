@@ -1,0 +1,10 @@
+{
+  "f426e03c065de0bf281c7c40e218a905": {
+    "return": "<|COMPLETE|>",
+    "model": "gpt-4o"
+  },
+  "898740e9e48b5f487e77c682b309d11b": {
+    "return": "There are no entities of the specified types (organization, person, geo, event) present in the text \"The quick brown fox jumps over the lazy dog.\" The sentence is a well-known English pangram that does not reference any identifiable entities fitting the given categories. \n\nIf you have another text with relevant entity types, I'd be happy to assist with identifying and extracting entities from that. ",
+    "model": "gpt-4o"
+  }
+}

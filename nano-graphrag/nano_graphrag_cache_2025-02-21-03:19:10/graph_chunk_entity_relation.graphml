@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d7" for="edge" attr.name="order" attr.type="long" />
+  <key id="d6" for="edge" attr.name="source_id" attr.type="string" />
+  <key id="d5" for="edge" attr.name="description" attr.type="string" />
+  <key id="d4" for="edge" attr.name="weight" attr.type="double" />
+  <key id="d3" for="node" attr.name="clusters" attr.type="string" />
+  <key id="d2" for="node" attr.name="source_id" attr.type="string" />
+  <key id="d1" for="node" attr.name="description" attr.type="string" />
+  <key id="d0" for="node" attr.name="entity_type" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="&quot;STEVE JOBS&quot;">
+      <data key="d0">"PERSON"</data>
+      <data key="d1">"Steve Jobs was a co-founder of Apple Inc., known for his influential role in the technology industry and his contributions to the development of personal computing."</data>
+      <data key="d2">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;APPLE INC.&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Apple Inc. is a leading technology company founded by Steve Jobs and others, renowned for its innovative products such as the iPhone, iPad, and Mac computers."</data>
+      <data key="d2">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <edge source="&quot;STEVE JOBS&quot;" target="&quot;APPLE INC.&quot;">
+      <data key="d4">9.0</data>
+      <data key="d5">"Steve Jobs co-founded Apple Inc. and played a significant role in its growth and success in the technology sector."</data>
+      <data key="d6">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+      <data key="d7">1</data>
+    </edge>
+  </graph>
+</graphml>

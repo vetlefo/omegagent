@@ -1,0 +1,10 @@
+{
+  "f426e03c065de0bf281c7c40e218a905": {
+    "return": "There are no entities or relationships matching the specified entity types [organization, person, geo, event] in the given text, \"The quick brown fox jumps over the lazy dog.\"\n\n<|COMPLETE|>",
+    "model": "gpt-4o"
+  },
+  "d9b50e8f28916961530db83e971cb915": {
+    "return": "Given the sentence \"The quick brown fox jumps over the lazy dog,\" there aren't any entities that fit the specified entity types of organization, person, geo, or event. The sentence is a well-known pangram used to illustrate the use of every letter in the English alphabet. As such, it does not contain named entities within the context of those specified types.\n\nIf there were a misunderstanding or you intended for a different kind of categorization, please clarify so I can assist you accordingly.\n\n<|COMPLETE|>",
+    "model": "gpt-4o"
+  }
+}

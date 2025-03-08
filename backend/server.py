@@ -8,59 +8,28 @@ from backend.repo_map import RepoMap
 from backend.agents.orchestrator_agent import OrchestratorAgent
 from backend.communication import WebSocketCommunicator
 from backend.utils import get_file_content
+from typing import Any, Dict, Set, Optional, Union
+
 import logging
 
-# Load environment variables
-load_dotenv()
-
-# Validate required environment variables
-required_vars = ['OPENAI_API_KEY', 'GEMINI_API_KEY']
-missing_vars = [var for var in required_vars if not os.getenv(var)]
-if missing_vars:
-    raise RuntimeError(f"Missing required environment variables: {', '.join(missing_vars)}")
-
-# Configure logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+# Mount the frontend directory to serve static files (HTML, CSS, JS)
+app.mount("/", StaticFiles(directory="../../frontend/public", html=True), name="static")
 
-
-# Serve the frontend page.
 @app.get("/")
-async def get_index():
-    logger.info("Received request for index page.")
-    try:
-        with open("frontend/index.html", "r", encoding="utf-8") as f:
-            html_content = f.read()
-        logger.info("Successfully read index.html.")
-        return HTMLResponse(html_content)
-    except Exception as e:
-        logger.error(f"Error serving index page: {e}")
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+async def root():
+    return {"message": "AI Codepilot Server"}
 
-
-
-async def listen_for_stop(comm: WebSocketCommunicator):
-    """
-    Listen for a stop command from the frontend.
-    Assumes that a message with {"type": "stop"} is sent.
-    """
-    message = await comm.receive("stop")
-    return message
-
-@app.websocket("/ws")
+@app.websocket("/ws/discourse")
 async def websocket_endpoint(websocket: WebSocket):
-    logger.info("WebSocket connection initiated.")
+    """Stream DiscourseManager actions to the frontend."""
     await websocket.accept()
     comm = WebSocketCommunicator(websocket)
-    orchestration_task = None
-    
     try:
         # Start the message router and wait for it to be ready
         await comm.start()
@@ -125,3 +94,10 @@ async def websocket_endpoint(websocket: WebSocket):
         await comm.stop()
         if orchestration_task and not orchestration_task.done():
             orchestration_task.cancel()
+
+async def listen_for_stop(comm: WebSocketCommunicator):
+    """Listen for a 'stop' message from the client and raise CancelledError if received."""
+    while True:
+        message = await comm.receive("default")
+        if message and message.get("type") == "stop":
+            raise asyncio.CancelledError("Stop message received")

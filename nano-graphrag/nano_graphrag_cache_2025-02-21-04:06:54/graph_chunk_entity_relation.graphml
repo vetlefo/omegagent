@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d2" for="node" attr.name="source_id" attr.type="string" />
+  <key id="d1" for="node" attr.name="description" attr.type="string" />
+  <key id="d0" for="node" attr.name="entity_type" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="&quot;THE QUICK BROWN FOX&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The Quick Brown Fox refers to the action of a fox jumping over a lazy dog in the sentence."</data>
+      <data key="d2">chunk-e4d909c290d0fb1ca068ffaddf22cbd0</data>
+    </node>
+    <node id="&quot;THE LAZY DOG&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The Lazy Dog refers to the static action of a dog being jumped over by a fox."</data>
+      <data key="d2">chunk-e4d909c290d0fb1ca068ffaddf22cbd0</data>
+    </node>
+    <node id="&quot;QUICK BROWN FOX&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The phrase refers to the action of a fox that is quick and brown, emphasizing its movement."</data>
+      <data key="d2">chunk-e4d909c290d0fb1ca068ffaddf22cbd0</data>
+    </node>
+    <node id="&quot;LAZY DOG&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The phrase refers to the stillness or inactivity of a dog, highlighting the contrast in the scenario."</data>
+      <data key="d2">chunk-e4d909c290d0fb1ca068ffaddf22cbd0</data>
+    </node>
+  </graph>
+</graphml>

@@ -1,0 +1,10 @@
+{
+  "f426e03c065de0bf281c7c40e218a905": {
+    "return": "The text provided doesn't contain any entities of the types specified (organization, person, geo, event). Therefore, no entities or relationships can be identified from this text.\n\n<|COMPLETE|>",
+    "model": "gpt-4o"
+  },
+  "5e45881d34ad0ddb0ca220ce2de2c9af": {
+    "return": "The text \"The quick brown fox jumps over the lazy dog.\" does not contain any identifiable entities of the specified types (organization, person, geo, event). As a result, no entities or relationships can be extracted according to the provided criteria.\n\n<|COMPLETE|>",
+    "model": "gpt-4o"
+  }
+}
