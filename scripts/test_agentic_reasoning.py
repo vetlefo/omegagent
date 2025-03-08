@@ -3,7 +3,7 @@
 from agentic_research.collaborative_storm.discourse_manager import DiscourseManager
 from agentic_research.collaborative_storm.lm_configs import CollaborativeStormLMConfigs
 from agentic_research.collaborative_storm.runner_args import RunnerArgument
-from agentic_research.dataclass import ConversationTurn
+from agentic_research.interface import ConversationTurn
 from test_utils import MockBingSearch, MockEncoder, MockCallbackHandler, MockLoggingWrapper
 
 def main():

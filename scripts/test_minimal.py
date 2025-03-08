@@ -32,7 +32,7 @@ pydantic.BaseModel.model_config = {"arbitrary_types_allowed": True}
 
 from minimal_lm_configs import MinimalLMConfigs
 from agentic_research.collaborative_storm.runner_args import RunnerArgument
-from agentic_research.dataclass import ConversationTurn
+from agentic_research.interface import ConversationTurn
 from test_utils import MockBingSearch, MockEncoder, MockCallbackHandler, MockLoggingWrapper
 from minimal_discourse_manager import MinimalDiscourseManager
 

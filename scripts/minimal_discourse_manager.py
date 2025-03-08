@@ -1,13 +1,9 @@
 """Minimal version of DiscourseManager without graph dependencies."""
 
 from typing import List, Dict
-from agentic_research.collaborative_storm.lm_configs import CollaborativeStormLMConfigs
-from agentic_research.search import BingSearch
+from minimal_lm_configs import MinimalLMConfigs
 from agentic_research.collaborative_storm.runner_args import RunnerArgument
-from agentic_research.encoder import Encoder
-from agentic_research.dataclass import ConversationTurn
-from agentic_research.logging_wrapper import LoggingWrapper
-from agentic_research.callback_handler import BaseCallbackHandler
+from agentic_research.interface import ConversationTurn
 
 class TurnPolicySpec:
     """Specification for the next conversation turn."""
@@ -60,12 +56,12 @@ class MinimalDiscourseManager:
 
     def __init__(
         self,
-        lm_config: CollaborativeStormLMConfigs,
+        lm_config: MinimalLMConfigs,
         runner_argument: RunnerArgument,
-        logging_wrapper: LoggingWrapper,
-        rm: BingSearch,
-        encoder: Encoder,
-        callback_handler: BaseCallbackHandler,
+        logging_wrapper,
+        rm,
+        encoder,
+        callback_handler,
     ):
         self.lm_config = lm_config
         self.runner_argument = runner_argument

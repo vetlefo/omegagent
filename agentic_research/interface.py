@@ -8,7 +8,9 @@ import time
 from abc import ABC, abstractmethod
 from collections import OrderedDict
 from typing import Dict, List, Optional, Union, TYPE_CHECKING
+from typing import Literal
 
+from pydantic import BaseModel, Field
 from .utils import ArticleTextProcessing
 
 logging.basicConfig(
@@ -562,6 +564,56 @@ class Engine(ABC):
         self.rm_cost = {}
 
 
+class ConversationTurn(BaseModel):
+    """Represents a single turn in a conversation."""
+    role: str
+    raw_utterance: str = ""
+    utterance: str = ""
+    utterance_type: str = "Potential Answer"
+    claim_to_make: str = ""
+    queries: List[str] = Field(default_factory=list)
+    raw_retrieved_info: List[Information] = Field(default_factory=list)
+    cited_info: List[Information] = Field(default_factory=list)
+
+    class Config:
+        # Allow arbitrary types in the model
+        arbitrary_types_allowed = True
+        # Disable validation to handle circular references
+        validate_assignment = False
+
+    def get_raw_retrieved_info_except_cited(self) -> List[Information]:
+        """Get raw retrieved information excluding cited information."""
+        cited_info_hash = {hash(info) for info in self.cited_info}
+        return [info for info in self.raw_retrieved_info if hash(info) not in cited_info_hash]
+
+
+class KnowledgeBase(BaseModel):
+    """Represents a collection of knowledge for the conversation."""
+    topic: str
+    
+    class Config:
+        # Allow arbitrary types in the model
+        arbitrary_types_allowed = True
+        validate_assignment = False
+    info_uuid_to_info_dict: Dict[int, Information] = Field(default_factory=dict)
+    
+    def add_information(self, info: Information) -> None:
+        """Add information to the knowledge base."""
+        self.info_uuid_to_info_dict[hash(info)] = info
+        
+    def get_all_information(self) -> List[Information]:
+        """Get all information in the knowledge base."""
+        return list(self.info_uuid_to_info_dict.values())
+        
+    def get_knowledge_base_summary(self) -> str:
+        """Generate a summary of the knowledge base content."""
+        summary_parts = []
+        for info in self.get_all_information():
+            snippets = "; ".join(info.snippets)
+            summary_parts.append(f"Source: {info.url}\nTitle: {info.title}\nSnippets: {snippets}")
+        return "\n\n".join(summary_parts)
+
+
 class Agent(ABC):
     """
     Interface for STORM and Co-STORM LLM agent
@@ -584,9 +636,6 @@ class Agent(ABC):
         - Subclasses of `Agent` should define the exact strategy for generating the utterance, which could involve interacting with a language model, retrieving relevant knowledge, or following specific conversational policies.
         - The agent's role, perspective, and the knowledge base content will influence how the utterance is formulated.
     """
-
-    from .dataclass import KnowledgeBase, ConversationTurn
-
     def __init__(self, topic: str, role_name: str, role_description: str):
         self.topic = topic
         self.role_name = role_name
@@ -596,13 +645,71 @@ class Agent(ABC):
         if self.role_description:
             return f"{self.role_name}: {self.role_description}"
         return self.role_name
+    # Add a discriminator field
+    agent_type: str = Field(..., discriminator=True)  # Use for discrimination
 
-    @abstractmethod
-    def generate_utterance(
-        self,
-        knowledge_base: KnowledgeBase,
-        conversation_history: List[ConversationTurn],
-        logging_wrapper: "LoggingWrapper",
-        **kwargs,
-    ):
-        pass
+    class Config:
+        extra = "allow" # Allow extra fields
+
+    @classmethod
+    def __get_pydantic_core_schema__(cls, source_type, handler):
+         #we just need the schema
+        from pydantic_core import core_schema
+        return core_schema.any_schema()
+
+class SimulatedUser(Agent):
+    """Simulated user agent."""
+    agent_type: Literal["simulated_user"] = "simulated_user"
+    intent: Optional[str] = None  # Add other fields specific to SimulatedUser
+
+
+class PureRAGAgent(Agent):
+    """RAG agent."""
+    agent_type: Literal["pure_rag"] = "pure_rag"
+
+
+class Moderator(Agent):
+  """Moderator agent."""
+  agent_type: Literal["moderator"] = "moderator"
+  
+
+class CoStormExpert(Agent):
+  """costorm expert agent"""
+  agent_type: Literal["costorm_expert"] = "costorm_expert"
+
+
+class KnowledgeNode(BaseModel):
+    """A node in the knowledge tree structure used to organize information by topics and subtopics."""
+    name: str
+    content: set = Field(default_factory=set)
+    children: List["KnowledgeNode"] = Field(default_factory=list)
+    synthesize_output: Optional[str] = None
+    need_regenerate_synthesize_output: bool = False
+    
+    def add_child(self, new_child_node, insert_to_front=False):
+        if insert_to_front:
+            self.children.insert(0, new_child_node)
+        else:
+            self.children.append(new_child_node)
+            
+    def get_children_names(self):
+        return [child.name for child in self.children]
+        
+    def get_path_from_root(self, root=None):
+        """Return list of node names from root to this node."""
+        return [self.name]
+        
+    def collect_all_content(self):
+        """Collect all content indices from this node."""
+        return self.content
+
+
+@abstractmethod
+def generate_utterance(
+    self,
+    knowledge_base: KnowledgeBase,
+    conversation_history: List[ConversationTurn],
+    logging_wrapper: Optional["LoggingWrapper"] = None,
+    **kwargs,
+):
+    pass
