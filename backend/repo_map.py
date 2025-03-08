@@ -2,18 +2,11 @@
 import os
 import sys
 import ast
-from typing import Any, List, Dict, Set, Optional
+from typing import Any, List, Dict, Set
 import tiktoken
 from bs4 import BeautifulSoup
 import fnmatch
 import re
-import logging
-
-# Import advanced reasoning capabilities from Agentic-Reasoning
-from agentic_research.encoder import Encoder
-from agentic_research.utils import FileIOHelper
-
-logger = logging.getLogger(__name__)
 
 def unparse_annotation(annotation):
     """
@@ -194,26 +187,12 @@ def parse_svelte_file(filepath: str) -> Dict[str, Any]:
     return svelte_info
 
 class RepoMap:
-    def __init__(self, root_dir=".", use_semantic_analysis=False):
+    def __init__(self, root_dir="."):
         self.root_dir = os.path.abspath(root_dir)
         self.repo_map = {}
         self.gitignore_patterns = set()
         self._load_gitignore_patterns()
-        
-        # Flag to enable semantic code analysis using Agentic-Reasoning
-        self.use_semantic_analysis = use_semantic_analysis or os.getenv("USE_SEMANTIC_ANALYSIS", "false").lower() == "true"
-        
-        # Initialize encoder if semantic analysis is enabled
-        self.encoder = None
-        if self.use_semantic_analysis:
-            try:
-                self.encoder = Encoder(encoder_type=os.getenv("ENCODER_API_TYPE", "openai"))
-                logger.info("Initialized Agentic-Reasoning Encoder for semantic code analysis")
-            except Exception as e:
-                logger.warning(f"Failed to initialize Encoder: {e}")
-                self.use_semantic_analysis = False
-                
-        logger.info(f"Loaded gitignore patterns: {self.gitignore_patterns}")
+        print(f"Loaded gitignore patterns: {self.gitignore_patterns}")  # Debug line
 
     def _load_gitignore_patterns(self):
         """
@@ -378,101 +357,12 @@ class RepoMap:
             tags[tag] = sorted(list(tags[tag]))
         return {"tags": tags}
 
-    def analyze_semantic_relationships(self):
-        """
-        Analyze semantic relationships between code components using Agentic-Reasoning's Encoder.
-        This enhances the code understanding by identifying conceptually related components.
-        
-        Returns:
-            Dict mapping component names to lists of semantically related components
-        """
-        if not self.use_semantic_analysis or not self.encoder:
-            logger.warning("Semantic analysis is disabled or encoder not initialized")
-            return {}
-            
-        try:
-            # Extract component definitions (classes and functions) from repo_map
-            components = []
-            component_details = {}
-            
-            for filepath, info in self.repo_map.items():
-                # Process Python functions
-                if info.get("functions"):
-                    for func in info["functions"]:
-                        func_name = func["name"]
-                        func_id = f"{filepath}::{func_name}"
-                        # Create a description of the function for semantic analysis
-                        func_desc = format_function(func)
-                        components.append(func_id)
-                        component_details[func_id] = func_desc
-                
-                # Process Python classes
-                if info.get("classes"):
-                    for cls in info["classes"]:
-                        cls_name = cls["name"]
-                        cls_id = f"{filepath}::{cls_name}"
-                        # Create a description of the class for semantic analysis
-                        cls_desc = format_class(cls)
-                        components.append(cls_id)
-                        component_details[cls_id] = cls_desc
-            
-            # If no components found, return empty dictionary
-            if not components:
-                return {}
-                
-            # Generate embeddings for all component descriptions
-            descriptions = [component_details[comp_id] for comp_id in components]
-            embeddings = self.encoder.encode(descriptions)
-            
-            # Calculate semantic similarity between all components
-            relationships = {}
-            for i, comp_id in enumerate(components):
-                # Find the 5 most similar components (excluding self)
-                similarities = []
-                for j, other_id in enumerate(components):
-                    if i != j:  # Skip self-comparison
-                        # Calculate cosine similarity between embeddings
-                        similarity = self._cosine_similarity(embeddings[i], embeddings[j])
-                        similarities.append((other_id, similarity))
-                
-                # Sort by similarity (highest first) and take top 5
-                similarities.sort(key=lambda x: x[1], reverse=True)
-                related = similarities[:5]
-                relationships[comp_id] = related
-            
-            return relationships
-            
-        except Exception as e:
-            logger.error(f"Error in semantic analysis: {e}")
-            return {}
-    
-    def _cosine_similarity(self, a, b):
-        """Calculate cosine similarity between two vectors."""
-        import numpy as np
-        return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
-    
-    def to_python_stub(self, include_semantic_relationships=False):
+    def to_python_stub(self):
         """
         Return a Python-style stub representation of the repository map.
-        
-        Args:
-            include_semantic_relationships: If True, includes semantic relationship 
-                                           information in the stub (requires semantic analysis)
         """
         lines = []
         lines.append(f"# Repo Stub for directory: {self.root_dir}")
-        
-        # Add semantic relationships if requested and available
-        if include_semantic_relationships and self.use_semantic_analysis:
-            relationships = self.analyze_semantic_relationships()
-            if relationships:
-                lines.append("\n# Semantic Component Relationships:")
-                for comp_id, related in relationships.items():
-                    lines.append(f"# {comp_id} is related to:")
-                    for rel_id, score in related:
-                        lines.append(f"#   - {rel_id} (similarity: {score:.2f})")
-                lines.append("\n")
-        
         for filepath, info in self.repo_map.items():
             lines.append(f"\n# File: {filepath}")
             if filepath.endswith(".py"):
@@ -509,94 +399,27 @@ class RepoMap:
                 lines.append(stub)
         return "\n".join(lines)
 
-    def print_python_stub(self, include_semantic_relationships=False):
-        """
-        Print the Python stub representation.
-        
-        Args:
-            include_semantic_relationships: If True, includes semantic relationship analysis
-        """
-        print(self.to_python_stub(include_semantic_relationships=include_semantic_relationships))
+    def print_python_stub(self):
+        """Print the Python stub representation."""
+        print(self.to_python_stub())
 
-    def token_count_python_stub(self, encoding_name="gpt2", include_semantic_relationships=False):
+    def token_count_python_stub(self, encoding_name="gpt2"):
         """
         Compute an accurate token count of the Python stub representation using tiktoken.
-        
-        Args:
-            encoding_name: The name of the encoding to use
-            include_semantic_relationships: Whether to include semantic relationships in the token count
         """
-        stub_text = self.to_python_stub(include_semantic_relationships=include_semantic_relationships)
+        stub_text = self.to_python_stub()
         encoding = tiktoken.get_encoding(encoding_name)
         tokens = encoding.encode(stub_text)
         return len(tokens)
 
-    def print_token_count_python_stub(self, include_semantic_relationships=False):
-        """
-        Print the token count for the Python stub representation.
-        
-        Args:
-            include_semantic_relationships: Whether to include semantic relationships in the token count
-        """
-        count = self.token_count_python_stub(include_semantic_relationships=include_semantic_relationships)
-        if include_semantic_relationships and self.use_semantic_analysis:
-            print(f"Accurate token count (Python stub with semantic relationships, using tiktoken): {count}")
-        else:
-            print(f"Accurate token count (Python stub, using tiktoken): {count}")
-    
-    def save_repo_map(self, output_path=None, include_semantic_relationships=False):
-        """
-        Save the repository map to a file.
-        
-        Args:
-            output_path: Path to save the repository map to
-            include_semantic_relationships: Whether to include semantic relationships
-        """
-        if output_path is None:
-            output_path = os.path.join(self.root_dir, "repo_map.txt")
-            
-        stub_text = self.to_python_stub(include_semantic_relationships=include_semantic_relationships)
-        try:
-            FileIOHelper.write_str(stub_text, output_path)
-            logger.info(f"Repository map saved to {output_path}")
-            
-            # Also save relationships separately if requested
-            if include_semantic_relationships and self.use_semantic_analysis:
-                relationships = self.analyze_semantic_relationships()
-                if relationships:
-                    rel_path = os.path.join(os.path.dirname(output_path), "semantic_relationships.json")
-                    FileIOHelper.dump_json(relationships, rel_path)
-                    logger.info(f"Semantic relationships saved to {rel_path}")
-                    
-            return True
-        except Exception as e:
-            logger.error(f"Failed to save repository map: {e}")
-            return False
+    def print_token_count_python_stub(self):
+        """Print the token count for the Python stub representation."""
+        count = self.token_count_python_stub()
+        print(f"Accurate token count (Python stub, using tiktoken): {count}")
 
 if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser(description="Generate a repository map")
-    parser.add_argument("--root", "-r", default=".", help="Root directory to analyze")
-    parser.add_argument("--semantic", "-s", action="store_true", help="Enable semantic analysis")
-    parser.add_argument("--output", "-o", help="Output file path")
-    parser.add_argument("--encoder", "-e", default="openai", 
-                       help="Encoder type to use (openai, azure)")
-    args = parser.parse_args()
-    
-    # Set environment variable for encoder type if provided
-    if args.encoder:
-        os.environ["ENCODER_API_TYPE"] = args.encoder
-    
-    # Initialize RepoMap with semantic analysis if requested
-    rm = RepoMap(args.root, use_semantic_analysis=args.semantic)
-    print(f"Building repository map for {args.root}...")
+    repo_root = sys.argv[1] if len(sys.argv) > 1 else "."
+    rm = RepoMap(repo_root)
     rm.build_map()
-    
-    # Save the repository map if output path is provided
-    if args.output:
-        rm.save_repo_map(args.output, include_semantic_relationships=args.semantic)
-    else:
-        # Otherwise print to stdout
-        rm.print_python_stub(include_semantic_relationships=args.semantic)
-        rm.print_token_count_python_stub(include_semantic_relationships=args.semantic)
+    rm.print_python_stub()
+    rm.print_token_count_python_stub()

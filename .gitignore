@@ -45,7 +45,7 @@ research_output/
 local_mem/
 data/
 
-
+test*
 
 data_download.py
 book.txt

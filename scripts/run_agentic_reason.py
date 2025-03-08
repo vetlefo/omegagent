@@ -2,30 +2,40 @@
 import os
 import json
 import time
-
+import re
+from tqdm import tqdm
+import numpy as np
+import torch
+import string
+from typing import Optional, Tuple, List, Dict
+import argparse
 from agentic_reason.config import parse_args
 from agentic_reason.data_loader import load_dataset
 from agentic_reason.cache import CacheManager
 from agentic_reason.models import initialize_model, get_output_dir
-from agentic_reason.utils import extract_between, replace_recent_steps
+from agentic_reason.search import process_search_query
+from agentic_reason.utils import parse_steps, extract_between, replace_recent_steps
 from agentic_reason.generation import generate_webpage_to_reasonchain_batch, run_generation
-from agentic_reason.prompt_manager import prepare_input_prompts
+from agentic_reason.prompt_manager import get_instruction_and_prompt, prepare_input_prompts
 
-# from transformers import AutoTokenizer # Commented out as it is now handled in models.py
-# from vllm import LLM, SamplingParams #Commented out vllm import
+from transformers import AutoTokenizer
+from vllm import LLM, SamplingParams
 from tools.run_code import code_agent
 from tools.run_search import search_agent
-from nano_graphrag import GraphRAG
+from nano_graphrag import GraphRAG, QueryParam
 
-from agentic_ds import agentic_ds  # Assuming this is used somewhere
+from agentic_ds import agentic_ds
 
 from tools.bing_search import (
-    bing_web_search,
-    extract_relevant_info,
-    fetch_page_content,
+    bing_web_search, 
+    extract_relevant_info, 
+    fetch_page_content, 
     extract_snippet_with_context
 )
-from evaluate import run_evaluation
+from evaluate import (
+    run_evaluation, 
+    extract_answer
+)
 from agentic_reason.config import (
     BEGIN_SEARCH_QUERY,
     END_SEARCH_QUERY,
@@ -42,17 +52,18 @@ from agentic_reason.config import (
 )
 from agentic_reason.utils import extract_reasoning_context
 
-
 def main():
     args = parse_args()
 
     # Extract arguments
     dataset_name = args.dataset_name
     split = args.split
+    subset_num = args.subset_num
     MAX_SEARCH_LIMIT = args.max_search_limit
     MAX_TURN = args.max_turn
     top_k = args.top_k
     max_doc_len = args.max_doc_len
+    model_path = args.model_path
     temperature = args.temperature
     top_p = args.top_p
     top_k_sampling = args.top_k_sampling
@@ -74,14 +85,14 @@ def main():
     # ---------------------- Set Max Tokens ----------------------
     max_tokens = 8192
 
-   # ---------------------- Model Loading ----------------------
+    # ---------------------- Model Loading ----------------------
     llm, tokenizer = initialize_model(args)
     # ---------------------- Data Loading ----------------------
     filtered_data = []
     if args.dataset_name:
         filtered_data = load_dataset(args.dataset_name, args.split)
         dataset_name = args.dataset_name
-    else:  # Get user input
+    else:# Get user input
         print("\nEnter your query (or 'quit' to exit):")
         query = input("> ")
         filtered_data.append({'Question': query})
@@ -131,7 +142,7 @@ def main():
             print(f'\n-------------- Turn {turn} --------------')
             print(f"We have {len(sequences_needing_generation)} sequences needing generation...")
             outputs = run_generation(
-                sequences_needing_generation,
+                sequences_needing_generation, 
                 llm,
                 tokenizer,
                 temperature,
@@ -168,7 +179,7 @@ def main():
 
                 # Extract search query
                 search_query = extract_between(text, BEGIN_SEARCH_QUERY, END_SEARCH_QUERY)
-                # Extract coding query
+                                # Extract coding query
                 code_query = extract_between(text, BEGIN_CODE_QUERY, END_CODE_QUERY)
                 mind_map_query = extract_between(text, BEGIN_MIND_MAP_QUERY, END_MIND_MAP_QUERY)
 
@@ -184,7 +195,7 @@ def main():
                     mind_map = None
 
                 if search_query and seq['output'].rstrip().endswith(END_SEARCH_QUERY):
-
+                    
                     if args.mind_map:
                         text_to_insert = seq['output'].split(BEGIN_SEARCH_QUERY)[0]
                         mind_map.insert(text_to_insert)
@@ -214,6 +225,7 @@ def main():
 
                         # Filter URLs that are not cached
                         urls_to_fetch_filtered = [u for u in urls_to_fetch if u not in url_cache]
+                        cached_urls = [u for u in urls_to_fetch if u in url_cache]
 
                         # Store info for all_urls_to_fetch and url_snippets
                         for url in urls_to_fetch_filtered:
@@ -258,12 +270,12 @@ def main():
                     if args.mind_map:
                         text_to_insert = seq['output'].split(BEGIN_CODE_QUERY)[0]
                         mind_map.insert(text_to_insert)
-                    # get reasoning con
+                                            # get reasoning con
                     all_reasoning_steps = seq['output']
                     all_reasoning_steps = all_reasoning_steps.replace('\n\n', '\n').split("\n")
 
                     truncated_prev_reasoning = extract_reasoning_context(all_reasoning_steps, mind_map=mind_map)
-
+                
                     code_query = code_query.strip()
                     code_result = code_tool.generate_code(code_query, truncated_prev_reasoning)
                     batch_code_results.append(code_result)
@@ -280,7 +292,7 @@ def main():
                     # If no search query needs to be executed, mark the sequence as finished
                     seq['finished'] = True
                     print("Sequence marked as complete.")
-
+            
             # Batch fetch all URLs at once to optimize speed
             if all_urls_to_fetch:
                 print(f"Fetching {len(all_urls_to_fetch)} URLs...")
@@ -305,17 +317,17 @@ def main():
                 for i, doc_info in enumerate(relevant_info):
                     url = doc_info['url']
                     raw_context = url_cache.get(url, "")
-                    doc_info['snippet'] = doc_info['snippet'].replace('<b>', '').replace('</b>', '')
+                    doc_info['snippet'] = doc_info['snippet'].replace('<b>','').replace('</b>','')            
                     success, filtered_context = extract_snippet_with_context(raw_context, doc_info['snippet'], context_chars=max_doc_len)
                     if success:
                         context = filtered_context
                     else:
-                        context = raw_context[:max_doc_len * 2]
+                        context = raw_context[:max_doc_len*2]
 
                     doc_info['context'] = context
                     formatted_documents += f"**Web Page {i + 1}:**\n"
                     formatted_documents += json.dumps(doc_info, ensure_ascii=False, indent=2) + "\n"
-
+                    
                 batch_documents.append(formatted_documents)
 
             # After fetching, prepare for batch processing if there are any
@@ -345,7 +357,7 @@ def main():
                         seq['prompt'] += append_text
                         seq['output'] += append_text
                         seq['history'].append(append_text)
-
+                    
                     if isinstance(code_result, str):
                         append_text = f"\n\n{BEGIN_CODE_RESULT}{code_result}{END_CODE_RESULT}\n\n"
                         seq['prompt'] += append_text

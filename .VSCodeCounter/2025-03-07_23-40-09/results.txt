@@ -1,0 +1,206 @@
+Date : 2025-03-07 23:40:09
+Directory : /Users/vetleforthun/Documents/Agentic-Reasoning
+Total : 134 files,  19704 codes, 1364 comments, 3085 blanks, all 24153 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| Python             |        111 |     16,456 |      1,335 |      2,859 |     20,650 |
+| JSON               |          4 |      2,052 |          0 |          2 |      2,054 |
+| Markdown           |          5 |        436 |          0 |        147 |        583 |
+| YAML               |          1 |        359 |          0 |          1 |        360 |
+| Svelte             |          1 |        249 |          2 |         30 |        281 |
+| CSS                |          1 |         43 |          2 |         15 |         60 |
+| reStructuredText   |          1 |         41 |          2 |         18 |         61 |
+| JavaScript         |          3 |         17 |          3 |          8 |         28 |
+| pip requirements   |          1 |         15 |          1 |          0 |         16 |
+| JSON with Comments |          1 |         15 |         17 |          1 |         33 |
+| HTML               |          1 |         13 |          0 |          1 |         14 |
+| Properties         |          1 |          4 |          0 |          2 |          6 |
+| Ini                |          1 |          3 |          0 |          0 |          3 |
+| XML                |          1 |          1 |          0 |          0 |          1 |
+| TypeScript         |          1 |          0 |          2 |          1 |          3 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                               | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                  |        134 |     19,704 |      1,364 |      3,085 |     24,153 |
+| . (Files)                                                                                                                          |          8 |        717 |          1 |        111 |        829 |
+| agentic_research                                                                                                                   |         34 |      8,156 |        901 |      1,435 |     10,492 |
+| agentic_research (Files)                                                                                                           |          8 |      3,576 |        803 |        805 |      5,184 |
+| agentic_research/collaborative_storm                                                                                               |         15 |      2,669 |         59 |        347 |      3,075 |
+| agentic_research/collaborative_storm (Files)                                                                                       |          2 |        700 |          4 |         61 |        765 |
+| agentic_research/collaborative_storm/modules                                                                                       |         13 |      1,969 |         55 |        286 |      2,310 |
+| agentic_research/storm_analysis                                                                                                    |         11 |      1,911 |         39 |        283 |      2,233 |
+| agentic_research/storm_analysis (Files)                                                                                            |          2 |        402 |          7 |         37 |        446 |
+| agentic_research/storm_analysis/modules                                                                                            |          9 |      1,509 |         32 |        246 |      1,787 |
+| backend                                                                                                                            |         15 |      1,177 |         67 |        180 |      1,424 |
+| backend (Files)                                                                                                                    |          6 |        703 |         40 |        106 |        849 |
+| backend/agents                                                                                                                     |          8 |        468 |         27 |         72 |        567 |
+| backend/models                                                                                                                     |          1 |          6 |          0 |          2 |          8 |
+| frontend                                                                                                                           |         12 |      2,395 |         26 |         79 |      2,500 |
+| frontend (Files)                                                                                                                   |          7 |      2,095 |         20 |         30 |      2,145 |
+| frontend/public                                                                                                                    |          1 |          1 |          0 |          0 |          1 |
+| frontend/src                                                                                                                       |          4 |        299 |          6 |         49 |        354 |
+| scripts                                                                                                                            |         65 |      7,259 |        369 |      1,280 |      8,908 |
+| scripts (Files)                                                                                                                    |          7 |      1,421 |        126 |        245 |      1,792 |
+| scripts/agentic_reason                                                                                                             |          9 |        746 |         59 |        135 |        940 |
+| scripts/lcb_runner                                                                                                                 |         40 |      4,353 |         94 |        764 |      5,211 |
+| scripts/lcb_runner (Files)                                                                                                         |          1 |        702 |          0 |         15 |        717 |
+| scripts/lcb_runner/benchmarks                                                                                                      |          3 |        180 |          3 |         39 |        222 |
+| scripts/lcb_runner/evaluation                                                                                                      |          8 |        712 |         45 |        183 |        940 |
+| scripts/lcb_runner/prompts                                                                                                         |          6 |        847 |         19 |        142 |      1,008 |
+| scripts/lcb_runner/prompts (Files)                                                                                                 |          4 |        825 |         19 |        142 |        986 |
+| scripts/lcb_runner/prompts/few_shot_examples                                                                                       |          2 |         22 |          0 |          0 |         22 |
+| scripts/lcb_runner/prompts/few_shot_examples/generation                                                                            |          2 |         22 |          0 |          0 |         22 |
+| scripts/lcb_runner/pyext                                                                                                           |          4 |        442 |         10 |        122 |        574 |
+| scripts/lcb_runner/pyext/pyext-0.7                                                                                                 |          4 |        442 |         10 |        122 |        574 |
+| scripts/lcb_runner/runner                                                                                                          |         14 |      1,194 |         15 |        199 |      1,408 |
+| scripts/lcb_runner/utils                                                                                                           |          4 |        276 |          2 |         64 |        342 |
+| scripts/tools                                                                                                                      |          7 |        514 |         66 |        102 |        682 |
+| scripts/utils                                                                                                                      |          2 |        225 |         24 |         34 |        283 |
++------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                                           | language           | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/vetleforthun/Documents/Agentic-Reasoning/PROJECT_BREAKDOWN.md                                                               | Markdown           |        146 |          0 |         37 |        183 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/README 2.md                                                                        | Markdown           |        134 |          0 |         59 |        193 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/README.md                                                                          | Markdown           |         45 |          0 |         12 |         57 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/__init__.py                                                       | Python             |          9 |          0 |          2 |         11 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/__init__.py                                   | Python             |          2 |          0 |          1 |          3 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/engine.py                                     | Python             |        698 |          4 |         60 |        762 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/__init__.py                           | Python             |          8 |          0 |          1 |          9 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/article_generation.py                 | Python             |        104 |          3 |         17 |        124 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/callback.py                           | Python             |         82 |          0 |         29 |        111 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/co_storm_agents.py                    | Python             |        334 |         11 |         31 |        376 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/collaborative_storm_utils.py          | Python             |        207 |          7 |         48 |        262 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/costorm_expert_utterance_generator.py | Python             |        144 |          2 |         15 |        161 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/expert_generation.py                  | Python             |         73 |          0 |         11 |         84 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/grounded_question_answering.py        | Python             |        141 |          8 |         15 |        164 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/grounded_question_generation.py       | Python             |         97 |          0 |         17 |        114 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/information_insertion_module.py       | Python             |        370 |         14 |         41 |        425 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/knowledge_base_summary.py             | Python             |         26 |          0 |          7 |         33 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/simulate_user.py                      | Python             |         30 |          0 |          8 |         38 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/collaborative_storm/modules/warmstart_hierarchical_chat.py        | Python             |        353 |         10 |         46 |        409 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/dataclass.py                                                      | Python             |        731 |          6 |        113 |        850 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/encoder.py                                                        | Python             |        142 |          2 |         35 |        179 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/interface.py                                                      | Python             |        493 |          2 |        114 |        609 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/lm.py                                                             | Python             |        361 |        712 |        216 |      1,289 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/logging_wrapper.py                                                | Python             |        179 |          5 |         29 |        213 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/rm.py                                                             | Python             |      1,022 |         41 |        176 |      1,239 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/__init__.py                                        | Python             |          2 |          0 |          1 |          3 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/engine.py                                          | Python             |        400 |          7 |         36 |        443 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/__init__.py                                | Python             |          4 |          0 |          1 |          5 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/article_generation.py                      | Python             |        161 |          4 |         25 |        190 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/article_polish.py                          | Python             |         81 |          2 |         20 |        103 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/callback.py                                | Python             |         26 |          0 |          9 |         35 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/knowledge_curation.py                      | Python             |        330 |          7 |         55 |        392 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/outline_generation.py                      | Python             |        141 |          0 |         27 |        168 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/persona_generator.py                       | Python             |        118 |          3 |         34 |        155 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/retriever.py                               | Python             |        224 |          3 |          7 |        234 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/storm_analysis/modules/storm_dataclass.py                         | Python             |        424 |         13 |         68 |        505 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/agentic_research/utils.py                                                          | Python             |        639 |         35 |        120 |        794 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/__init__.py                                                                | Python             |          0 |          0 |          1 |          1 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/agents/__init__.py                                                         | Python             |          0 |          0 |          1 |          1 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/agents/coder_agent.py                                                      | Python             |        109 |          3 |         17 |        129 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/agents/merge_agent.py                                                      | Python             |         60 |          3 |          7 |         70 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/agents/models.py                                                           | Python             |         25 |          0 |          5 |         30 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/agents/orchestrator_agent.py                                               | Python             |        169 |         18 |         24 |        211 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/agents/planner_agent.py                                                    | Python             |         35 |          2 |          8 |         45 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/agents/review_agent.py                                                     | Python             |         52 |          1 |          8 |         61 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/agents/utils.py                                                            | Python             |         18 |          0 |          2 |         20 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/communication.py                                                           | Python             |         68 |          1 |         10 |         79 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/main.py                                                                    | Python             |          3 |          1 |          3 |          7 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/models/shared.py                                                           | Python             |          6 |          0 |          2 |          8 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/repo_map.py                                                                | Python             |        365 |         21 |         40 |        426 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/server.py                                                                  | Python             |         94 |         11 |         22 |        127 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/backend/utils.py                                                                   | Python             |        173 |          6 |         30 |        209 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/environment.yml                                                                    | YAML               |        359 |          0 |          1 |        360 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/README.md                                                                 | Markdown           |         27 |          0 |         21 |         48 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/index.html                                                                | HTML               |         13 |          0 |          1 |         14 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/jsconfig.json                                                             | JSON with Comments |         15 |         17 |          1 |         33 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/package-lock.json                                                         | JSON               |      2,004 |          0 |          1 |      2,005 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/package.json                                                              | JSON               |         26 |          0 |          1 |         27 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/public/vite.svg                                                           | XML                |          1 |          0 |          0 |          1 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/src/App.svelte                                                            | Svelte             |        249 |          2 |         30 |        281 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/src/app.css                                                               | CSS                |         43 |          2 |         15 |         60 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/src/main.js                                                               | JavaScript         |          7 |          0 |          3 |         10 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/src/vite-env.d.ts                                                         | TypeScript         |          0 |          2 |          1 |          3 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/svelte.config.js                                                          | JavaScript         |          4 |          2 |          2 |          8 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/frontend/vite.config.js                                                            | JavaScript         |          6 |          1 |          3 |         10 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/pytest.ini                                                                         | Ini                |          3 |          0 |          0 |          3 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/requirements.txt                                                                   | pip requirements   |         15 |          1 |          0 |         16 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/__init__.py                                                                | Python             |          0 |          1 |          0 |          1 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_ds.py                                                              | Python             |         48 |          9 |         15 |         72 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/__init__.py                                                 | Python             |          0 |          0 |          1 |          1 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/cache.py                                                    | Python             |         22 |          0 |          4 |         26 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/config.py                                                   | Python             |        146 |          7 |         25 |        178 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/data_loader.py                                              | Python             |         65 |          5 |         10 |         80 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/generation.py                                               | Python             |        113 |          4 |         17 |        134 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/models.py                                                   | Python             |         47 |          2 |          7 |         56 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/prompt_manager.py                                           | Python             |        114 |          1 |         18 |        133 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/search.py                                                   | Python             |        133 |          5 |         22 |        160 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/agentic_reason/utils.py                                                    | Python             |        106 |         35 |         31 |        172 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/evaluate.py                                                                | Python             |        467 |         54 |         82 |        603 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/github_upload.py                                                           | Python             |         77 |         16 |         24 |        117 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/benchmarks/__init__.py                                          | Python             |         13 |          0 |          1 |         14 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/benchmarks/code_execution.py                                    | Python             |         56 |          0 |         12 |         68 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/benchmarks/code_generation.py                                   | Python             |        111 |          3 |         26 |        140 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/evaluation/__init__.py                                          | Python             |          6 |          0 |          1 |          7 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/evaluation/compute_code_execution_metrics.py                    | Python             |         40 |          8 |          9 |         57 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/evaluation/compute_code_generation_metrics.py                   | Python             |        170 |          6 |         35 |        211 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/evaluation/compute_scores.py                                    | Python             |        128 |          3 |         25 |        156 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/evaluation/compute_test_output_prediction_metrics.py            | Python             |         71 |          3 |         27 |        101 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/evaluation/old_results_check.py                                 | Python             |         50 |          4 |         20 |         74 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/evaluation/pass_k_utils.py                                      | Python             |         55 |          0 |         12 |         67 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/evaluation/utils_execute.py                                     | Python             |        192 |         21 |         54 |        267 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/lm_styles.py                                                    | Python             |        702 |          0 |         15 |        717 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/prompts/__init__.py                                             | Python             |          4 |          0 |          1 |          5 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/prompts/code_execution.py                                       | Python             |        162 |          0 |         22 |        184 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/prompts/code_generation.py                                      | Python             |        371 |          2 |         71 |        444 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/prompts/few_shot_examples/generation/func.json                  | JSON               |         12 |          0 |          0 |         12 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/prompts/few_shot_examples/generation/stdin.json                 | JSON               |         10 |          0 |          0 |         10 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/prompts/self_repair.py                                          | Python             |        288 |         17 |         48 |        353 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/pyext/pyext-0.7/README.rst                                      | reStructuredText   |         41 |          2 |         18 |         61 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/pyext/pyext-0.7/pyext.py                                        | Python             |        378 |          8 |         97 |        483 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/pyext/pyext-0.7/setup.cfg                                       | Properties         |          4 |          0 |          2 |          6 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/pyext/pyext-0.7/setup.py                                        | Python             |         19 |          0 |          5 |         24 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/base_runner.py                                           | Python             |        156 |          1 |         25 |        182 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/claude3_runner.py                                        | Python             |         43 |          0 |         10 |         53 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/claude_runner.py                                         | Python             |         42 |          0 |         10 |         52 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/cohere_runner.py                                         | Python             |         44 |          0 |         10 |         54 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/custom_evaluator.py                                      | Python             |         87 |          9 |         19 |        115 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/deepseek_runner.py                                       | Python             |         60 |          1 |          9 |         70 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/gemini_runner.py                                         | Python             |         70 |          0 |         11 |         81 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/main.py                                                  | Python             |        182 |          0 |         32 |        214 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/mistral_runner.py                                        | Python             |         44 |          0 |         10 |         54 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/oai_runner.py                                            | Python             |         58 |          1 |          8 |         67 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/parser.py                                                | Python             |        129 |          0 |         13 |        142 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/runner_utils.py                                          | Python             |         33 |          0 |         12 |         45 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/scenario_router.py                                       | Python             |        189 |          1 |         24 |        214 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/runner/vllm_runner.py                                           | Python             |         57 |          2 |          6 |         65 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/utils/extraction_utils.py                                       | Python             |         49 |          2 |          8 |         59 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/utils/multiprocess.py                                           | Python             |        190 |          0 |         43 |        233 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/utils/path_utils.py                                             | Python             |         31 |          0 |         10 |         41 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/lcb_runner/utils/scenarios.py                                              | Python             |          6 |          0 |          3 |          9 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/prompts.py                                                                 | Python             |        415 |          0 |         42 |        457 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/run_agentic_reason.py                                                      | Python             |        330 |         46 |         64 |        440 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/tools/__init__.py                                                          | Python             |          0 |          1 |          0 |          1 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/tools/bing_search.py                                                       | Python             |        251 |         22 |         48 |        321 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/tools/creat_graph.py                                                       | Python             |         53 |         12 |         14 |         79 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/tools/duck_search.py                                                       | Python             |         12 |          0 |          3 |         15 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/tools/run_code.py                                                          | Python             |         42 |         17 |         10 |         69 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/tools/run_search.py                                                        | Python             |        156 |         14 |         26 |        196 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/tools/temp.py                                                              | Python             |          0 |          0 |          1 |          1 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/utils/math_equivalence.py                                                  | Python             |        107 |         23 |         22 |        152 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/utils/remote_llm.py                                                        | Python             |        118 |          1 |         12 |        131 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/scripts/yolo.md                                                                    | Markdown           |         84 |          0 |         18 |        102 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/setup.py                                                                           | Python             |         11 |          0 |          1 |         12 |
+| /Users/vetleforthun/Documents/Agentic-Reasoning/temp.py                                                                            | Python             |          4 |          0 |          1 |          5 |
+| Total                                                                                                                              |                    |     19,704 |      1,364 |      3,085 |     24,153 |
++------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

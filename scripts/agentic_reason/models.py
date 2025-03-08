@@ -1,22 +1,8 @@
 import os
 from transformers import AutoTokenizer
+from vllm import LLM
 from utils.remote_llm import RemoteAPILLM
 import torch
-
-# Conditional imports
-if os.environ.get("USE_OLLAMA", "false").lower() == "true":
-    from scripts.tools.ollama_client import OllamaClient
-    use_ollama = True
-    use_vllm = False
-else:
-    use_ollama = False
-    try:
-        from vllm import LLM
-        use_vllm = True
-    except ImportError:
-        print("Warning: vllm not available. Only remote models will be supported.")
-        use_vllm = False
-
 
 def get_output_dir(args, dataset_name, max_search_limit=5, top_k=10):
     """Determine output directory based on model and dataset configuration"""
@@ -49,20 +35,12 @@ def initialize_model(args):
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
         tokenizer.padding_side = 'left'
-
-        if use_ollama:
-            llm = OllamaClient()  # Initialize OllamaClient
-        elif use_vllm:
-            llm = LLM(
-                model=args.model_path,
-                tensor_parallel_size=torch.cuda.device_count(),
-                gpu_memory_utilization=0.95,
-            )
-        else:
-            # If neither OLLAMA nor VLLM is available, fall back to remote model
-            print("Warning: Local model requested but neither OLLAMA nor VLLM is available.")
-            print("Falling back to remote model. Please set --remote_model parameter.")
-            args.remote_model = 'gpt-4o'  # Default fallback
+        
+        llm = LLM(
+            model=args.model_path,
+            tensor_parallel_size=torch.cuda.device_count(),
+            gpu_memory_utilization=0.95,
+        )
     else:
         # Remote model initialization
         if args.remote_model == 'gpt-4o':
@@ -72,7 +50,7 @@ def initialize_model(args):
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
         tokenizer.padding_side = 'left'
-
+        
         llm = RemoteAPILLM(model_name=args.remote_model)
-
+    
     return llm, tokenizer

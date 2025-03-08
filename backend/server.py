@@ -6,7 +6,6 @@ import os
 import asyncio
 from backend.repo_map import RepoMap
 from backend.agents.orchestrator_agent import OrchestratorAgent
-from backend.agents.storm_orchestrator_agent import StormOrchestratorAgent
 from backend.communication import WebSocketCommunicator
 from backend.utils import get_file_content
 import logging
@@ -75,58 +74,25 @@ async def websocket_endpoint(websocket: WebSocket):
         user_prompt = init_msg.get("content", "")
         if not user_prompt:
             raise ValueError("No user prompt in initial message")
-
+            
         logger.info(f"Received user prompt: {user_prompt}")
-
+        
         # Extract config from init message
         config = init_msg.get("config", {})
         review = config.get("review", True)
         max_iterations = config.get("max_iterations", 1)
         root_directory = config.get("root_directory", ".")
-        logger.info(f"Received root_directory: {root_directory}")
-
-        # Extract additional config options for enhanced features
-        use_storm = config.get("use_storm", False)
-        include_semantic_relationships = config.get("include_semantic_relationships", False)
-        use_mcp = config.get("use_mcp", False)
-        use_ollama = config.get("use_ollama", False)
         
         # Build the repository map and generate the stub.
-        rm = RepoMap(root_directory, use_semantic_analysis=include_semantic_relationships)
+        rm = RepoMap(root_directory)
         rm.build_map()
+        repo_stub = rm.to_python_stub()
+        logger.info("Repository map built and stub generated.")
         
-        # Generate stub with semantic relationships if requested
-        if include_semantic_relationships:
-            repo_stub = rm.to_python_stub(include_semantic_relationships=True)
-            logger.info("Repository map built with semantic relationships")
-        else:
-            repo_stub = rm.to_python_stub()
-            logger.info("Repository map built (standard)")
-            
-        # Check if we should use StormOrchestratorAgent or standard OrchestratorAgent
-        if use_storm and os.getenv("USE_STORM", "false").lower() == "true":
-            logger.info("Creating StormOrchestratorAgent for enhanced reasoning")
-            orchestrator = StormOrchestratorAgent(
-                repo_stub, 
-                comm, 
-                review=review, 
-                max_iterations=max_iterations, 
-                root_directory=root_directory,
-                use_storm=True,
-                include_semantic_relationships=include_semantic_relationships,
-                use_mcp=use_mcp,
-                use_ollama=use_ollama
-            )
-            await comm.send("log", "Starting orchestration with CollaborativeStorm reasoning...")
-        else:
-            logger.info("Creating standard OrchestratorAgent")
-            orchestrator = OrchestratorAgent(
-                repo_stub, 
-                comm, 
-                review=review, 
-                max_iterations=max_iterations, 
-                root_directory=root_directory
-            )
+        # Create and run the orchestrator agent.
+        orchestrator = OrchestratorAgent(
+            repo_stub, comm, review=review, max_iterations=max_iterations, root_directory=root_directory
+        )
         await comm.send("log", "Starting orchestration...")
         logger.info("Starting orchestration.")
         

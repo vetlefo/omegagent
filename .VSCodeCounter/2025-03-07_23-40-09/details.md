@@ -1,0 +1,149 @@
+# Details
+
+Date : 2025-03-07 23:40:09
+
+Directory /Users/vetleforthun/Documents/Agentic-Reasoning
+
+Total : 134 files,  19704 codes, 1364 comments, 3085 blanks, all 24153 lines
+
+[Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
+
+## Files
+| filename | language | code | comment | blank | total |
+| :--- | :--- | ---: | ---: | ---: | ---: |
+| [Agentic-Reasoning/PROJECT\_BREAKDOWN.md](/Agentic-Reasoning/PROJECT_BREAKDOWN.md) | Markdown | 146 | 0 | 37 | 183 |
+| [Agentic-Reasoning/README 2.md](/Agentic-Reasoning/README%202.md) | Markdown | 134 | 0 | 59 | 193 |
+| [Agentic-Reasoning/README.md](/Agentic-Reasoning/README.md) | Markdown | 45 | 0 | 12 | 57 |
+| [Agentic-Reasoning/agentic\_research/\_\_init\_\_.py](/Agentic-Reasoning/agentic_research/__init__.py) | Python | 9 | 0 | 2 | 11 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/\_\_init\_\_.py](/Agentic-Reasoning/agentic_research/collaborative_storm/__init__.py) | Python | 2 | 0 | 1 | 3 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/engine.py](/Agentic-Reasoning/agentic_research/collaborative_storm/engine.py) | Python | 698 | 4 | 60 | 762 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/\_\_init\_\_.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/__init__.py) | Python | 8 | 0 | 1 | 9 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/article\_generation.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/article_generation.py) | Python | 104 | 3 | 17 | 124 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/callback.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/callback.py) | Python | 82 | 0 | 29 | 111 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/co\_storm\_agents.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/co_storm_agents.py) | Python | 334 | 11 | 31 | 376 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/collaborative\_storm\_utils.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/collaborative_storm_utils.py) | Python | 207 | 7 | 48 | 262 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/costorm\_expert\_utterance\_generator.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/costorm_expert_utterance_generator.py) | Python | 144 | 2 | 15 | 161 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/expert\_generation.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/expert_generation.py) | Python | 73 | 0 | 11 | 84 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/grounded\_question\_answering.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/grounded_question_answering.py) | Python | 141 | 8 | 15 | 164 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/grounded\_question\_generation.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/grounded_question_generation.py) | Python | 97 | 0 | 17 | 114 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/information\_insertion\_module.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/information_insertion_module.py) | Python | 370 | 14 | 41 | 425 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/knowledge\_base\_summary.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/knowledge_base_summary.py) | Python | 26 | 0 | 7 | 33 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/simulate\_user.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/simulate_user.py) | Python | 30 | 0 | 8 | 38 |
+| [Agentic-Reasoning/agentic\_research/collaborative\_storm/modules/warmstart\_hierarchical\_chat.py](/Agentic-Reasoning/agentic_research/collaborative_storm/modules/warmstart_hierarchical_chat.py) | Python | 353 | 10 | 46 | 409 |
+| [Agentic-Reasoning/agentic\_research/dataclass.py](/Agentic-Reasoning/agentic_research/dataclass.py) | Python | 731 | 6 | 113 | 850 |
+| [Agentic-Reasoning/agentic\_research/encoder.py](/Agentic-Reasoning/agentic_research/encoder.py) | Python | 142 | 2 | 35 | 179 |
+| [Agentic-Reasoning/agentic\_research/interface.py](/Agentic-Reasoning/agentic_research/interface.py) | Python | 493 | 2 | 114 | 609 |
+| [Agentic-Reasoning/agentic\_research/lm.py](/Agentic-Reasoning/agentic_research/lm.py) | Python | 361 | 712 | 216 | 1,289 |
+| [Agentic-Reasoning/agentic\_research/logging\_wrapper.py](/Agentic-Reasoning/agentic_research/logging_wrapper.py) | Python | 179 | 5 | 29 | 213 |
+| [Agentic-Reasoning/agentic\_research/rm.py](/Agentic-Reasoning/agentic_research/rm.py) | Python | 1,022 | 41 | 176 | 1,239 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/\_\_init\_\_.py](/Agentic-Reasoning/agentic_research/storm_analysis/__init__.py) | Python | 2 | 0 | 1 | 3 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/engine.py](/Agentic-Reasoning/agentic_research/storm_analysis/engine.py) | Python | 400 | 7 | 36 | 443 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/\_\_init\_\_.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/__init__.py) | Python | 4 | 0 | 1 | 5 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/article\_generation.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/article_generation.py) | Python | 161 | 4 | 25 | 190 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/article\_polish.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/article_polish.py) | Python | 81 | 2 | 20 | 103 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/callback.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/callback.py) | Python | 26 | 0 | 9 | 35 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/knowledge\_curation.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/knowledge_curation.py) | Python | 330 | 7 | 55 | 392 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/outline\_generation.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/outline_generation.py) | Python | 141 | 0 | 27 | 168 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/persona\_generator.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/persona_generator.py) | Python | 118 | 3 | 34 | 155 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/retriever.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/retriever.py) | Python | 224 | 3 | 7 | 234 |
+| [Agentic-Reasoning/agentic\_research/storm\_analysis/modules/storm\_dataclass.py](/Agentic-Reasoning/agentic_research/storm_analysis/modules/storm_dataclass.py) | Python | 424 | 13 | 68 | 505 |
+| [Agentic-Reasoning/agentic\_research/utils.py](/Agentic-Reasoning/agentic_research/utils.py) | Python | 639 | 35 | 120 | 794 |
+| [Agentic-Reasoning/backend/\_\_init\_\_.py](/Agentic-Reasoning/backend/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [Agentic-Reasoning/backend/agents/\_\_init\_\_.py](/Agentic-Reasoning/backend/agents/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [Agentic-Reasoning/backend/agents/coder\_agent.py](/Agentic-Reasoning/backend/agents/coder_agent.py) | Python | 109 | 3 | 17 | 129 |
+| [Agentic-Reasoning/backend/agents/merge\_agent.py](/Agentic-Reasoning/backend/agents/merge_agent.py) | Python | 60 | 3 | 7 | 70 |
+| [Agentic-Reasoning/backend/agents/models.py](/Agentic-Reasoning/backend/agents/models.py) | Python | 25 | 0 | 5 | 30 |
+| [Agentic-Reasoning/backend/agents/orchestrator\_agent.py](/Agentic-Reasoning/backend/agents/orchestrator_agent.py) | Python | 169 | 18 | 24 | 211 |
+| [Agentic-Reasoning/backend/agents/planner\_agent.py](/Agentic-Reasoning/backend/agents/planner_agent.py) | Python | 35 | 2 | 8 | 45 |
+| [Agentic-Reasoning/backend/agents/review\_agent.py](/Agentic-Reasoning/backend/agents/review_agent.py) | Python | 52 | 1 | 8 | 61 |
+| [Agentic-Reasoning/backend/agents/utils.py](/Agentic-Reasoning/backend/agents/utils.py) | Python | 18 | 0 | 2 | 20 |
+| [Agentic-Reasoning/backend/communication.py](/Agentic-Reasoning/backend/communication.py) | Python | 68 | 1 | 10 | 79 |
+| [Agentic-Reasoning/backend/main.py](/Agentic-Reasoning/backend/main.py) | Python | 3 | 1 | 3 | 7 |
+| [Agentic-Reasoning/backend/models/shared.py](/Agentic-Reasoning/backend/models/shared.py) | Python | 6 | 0 | 2 | 8 |
+| [Agentic-Reasoning/backend/repo\_map.py](/Agentic-Reasoning/backend/repo_map.py) | Python | 365 | 21 | 40 | 426 |
+| [Agentic-Reasoning/backend/server.py](/Agentic-Reasoning/backend/server.py) | Python | 94 | 11 | 22 | 127 |
+| [Agentic-Reasoning/backend/utils.py](/Agentic-Reasoning/backend/utils.py) | Python | 173 | 6 | 30 | 209 |
+| [Agentic-Reasoning/environment.yml](/Agentic-Reasoning/environment.yml) | YAML | 359 | 0 | 1 | 360 |
+| [Agentic-Reasoning/frontend/README.md](/Agentic-Reasoning/frontend/README.md) | Markdown | 27 | 0 | 21 | 48 |
+| [Agentic-Reasoning/frontend/index.html](/Agentic-Reasoning/frontend/index.html) | HTML | 13 | 0 | 1 | 14 |
+| [Agentic-Reasoning/frontend/jsconfig.json](/Agentic-Reasoning/frontend/jsconfig.json) | JSON with Comments | 15 | 17 | 1 | 33 |
+| [Agentic-Reasoning/frontend/package-lock.json](/Agentic-Reasoning/frontend/package-lock.json) | JSON | 2,004 | 0 | 1 | 2,005 |
+| [Agentic-Reasoning/frontend/package.json](/Agentic-Reasoning/frontend/package.json) | JSON | 26 | 0 | 1 | 27 |
+| [Agentic-Reasoning/frontend/public/vite.svg](/Agentic-Reasoning/frontend/public/vite.svg) | XML | 1 | 0 | 0 | 1 |
+| [Agentic-Reasoning/frontend/src/App.svelte](/Agentic-Reasoning/frontend/src/App.svelte) | Svelte | 249 | 2 | 30 | 281 |
+| [Agentic-Reasoning/frontend/src/app.css](/Agentic-Reasoning/frontend/src/app.css) | CSS | 43 | 2 | 15 | 60 |
+| [Agentic-Reasoning/frontend/src/main.js](/Agentic-Reasoning/frontend/src/main.js) | JavaScript | 7 | 0 | 3 | 10 |
+| [Agentic-Reasoning/frontend/src/vite-env.d.ts](/Agentic-Reasoning/frontend/src/vite-env.d.ts) | TypeScript | 0 | 2 | 1 | 3 |
+| [Agentic-Reasoning/frontend/svelte.config.js](/Agentic-Reasoning/frontend/svelte.config.js) | JavaScript | 4 | 2 | 2 | 8 |
+| [Agentic-Reasoning/frontend/vite.config.js](/Agentic-Reasoning/frontend/vite.config.js) | JavaScript | 6 | 1 | 3 | 10 |
+| [Agentic-Reasoning/pytest.ini](/Agentic-Reasoning/pytest.ini) | Ini | 3 | 0 | 0 | 3 |
+| [Agentic-Reasoning/requirements.txt](/Agentic-Reasoning/requirements.txt) | pip requirements | 15 | 1 | 0 | 16 |
+| [Agentic-Reasoning/scripts/\_\_init\_\_.py](/Agentic-Reasoning/scripts/__init__.py) | Python | 0 | 1 | 0 | 1 |
+| [Agentic-Reasoning/scripts/agentic\_ds.py](/Agentic-Reasoning/scripts/agentic_ds.py) | Python | 48 | 9 | 15 | 72 |
+| [Agentic-Reasoning/scripts/agentic\_reason/\_\_init\_\_.py](/Agentic-Reasoning/scripts/agentic_reason/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [Agentic-Reasoning/scripts/agentic\_reason/cache.py](/Agentic-Reasoning/scripts/agentic_reason/cache.py) | Python | 22 | 0 | 4 | 26 |
+| [Agentic-Reasoning/scripts/agentic\_reason/config.py](/Agentic-Reasoning/scripts/agentic_reason/config.py) | Python | 146 | 7 | 25 | 178 |
+| [Agentic-Reasoning/scripts/agentic\_reason/data\_loader.py](/Agentic-Reasoning/scripts/agentic_reason/data_loader.py) | Python | 65 | 5 | 10 | 80 |
+| [Agentic-Reasoning/scripts/agentic\_reason/generation.py](/Agentic-Reasoning/scripts/agentic_reason/generation.py) | Python | 113 | 4 | 17 | 134 |
+| [Agentic-Reasoning/scripts/agentic\_reason/models.py](/Agentic-Reasoning/scripts/agentic_reason/models.py) | Python | 47 | 2 | 7 | 56 |
+| [Agentic-Reasoning/scripts/agentic\_reason/prompt\_manager.py](/Agentic-Reasoning/scripts/agentic_reason/prompt_manager.py) | Python | 114 | 1 | 18 | 133 |
+| [Agentic-Reasoning/scripts/agentic\_reason/search.py](/Agentic-Reasoning/scripts/agentic_reason/search.py) | Python | 133 | 5 | 22 | 160 |
+| [Agentic-Reasoning/scripts/agentic\_reason/utils.py](/Agentic-Reasoning/scripts/agentic_reason/utils.py) | Python | 106 | 35 | 31 | 172 |
+| [Agentic-Reasoning/scripts/evaluate.py](/Agentic-Reasoning/scripts/evaluate.py) | Python | 467 | 54 | 82 | 603 |
+| [Agentic-Reasoning/scripts/github\_upload.py](/Agentic-Reasoning/scripts/github_upload.py) | Python | 77 | 16 | 24 | 117 |
+| [Agentic-Reasoning/scripts/lcb\_runner/benchmarks/\_\_init\_\_.py](/Agentic-Reasoning/scripts/lcb_runner/benchmarks/__init__.py) | Python | 13 | 0 | 1 | 14 |
+| [Agentic-Reasoning/scripts/lcb\_runner/benchmarks/code\_execution.py](/Agentic-Reasoning/scripts/lcb_runner/benchmarks/code_execution.py) | Python | 56 | 0 | 12 | 68 |
+| [Agentic-Reasoning/scripts/lcb\_runner/benchmarks/code\_generation.py](/Agentic-Reasoning/scripts/lcb_runner/benchmarks/code_generation.py) | Python | 111 | 3 | 26 | 140 |
+| [Agentic-Reasoning/scripts/lcb\_runner/evaluation/\_\_init\_\_.py](/Agentic-Reasoning/scripts/lcb_runner/evaluation/__init__.py) | Python | 6 | 0 | 1 | 7 |
+| [Agentic-Reasoning/scripts/lcb\_runner/evaluation/compute\_code\_execution\_metrics.py](/Agentic-Reasoning/scripts/lcb_runner/evaluation/compute_code_execution_metrics.py) | Python | 40 | 8 | 9 | 57 |
+| [Agentic-Reasoning/scripts/lcb\_runner/evaluation/compute\_code\_generation\_metrics.py](/Agentic-Reasoning/scripts/lcb_runner/evaluation/compute_code_generation_metrics.py) | Python | 170 | 6 | 35 | 211 |
+| [Agentic-Reasoning/scripts/lcb\_runner/evaluation/compute\_scores.py](/Agentic-Reasoning/scripts/lcb_runner/evaluation/compute_scores.py) | Python | 128 | 3 | 25 | 156 |
+| [Agentic-Reasoning/scripts/lcb\_runner/evaluation/compute\_test\_output\_prediction\_metrics.py](/Agentic-Reasoning/scripts/lcb_runner/evaluation/compute_test_output_prediction_metrics.py) | Python | 71 | 3 | 27 | 101 |
+| [Agentic-Reasoning/scripts/lcb\_runner/evaluation/old\_results\_check.py](/Agentic-Reasoning/scripts/lcb_runner/evaluation/old_results_check.py) | Python | 50 | 4 | 20 | 74 |
+| [Agentic-Reasoning/scripts/lcb\_runner/evaluation/pass\_k\_utils.py](/Agentic-Reasoning/scripts/lcb_runner/evaluation/pass_k_utils.py) | Python | 55 | 0 | 12 | 67 |
+| [Agentic-Reasoning/scripts/lcb\_runner/evaluation/utils\_execute.py](/Agentic-Reasoning/scripts/lcb_runner/evaluation/utils_execute.py) | Python | 192 | 21 | 54 | 267 |
+| [Agentic-Reasoning/scripts/lcb\_runner/lm\_styles.py](/Agentic-Reasoning/scripts/lcb_runner/lm_styles.py) | Python | 702 | 0 | 15 | 717 |
+| [Agentic-Reasoning/scripts/lcb\_runner/prompts/\_\_init\_\_.py](/Agentic-Reasoning/scripts/lcb_runner/prompts/__init__.py) | Python | 4 | 0 | 1 | 5 |
+| [Agentic-Reasoning/scripts/lcb\_runner/prompts/code\_execution.py](/Agentic-Reasoning/scripts/lcb_runner/prompts/code_execution.py) | Python | 162 | 0 | 22 | 184 |
+| [Agentic-Reasoning/scripts/lcb\_runner/prompts/code\_generation.py](/Agentic-Reasoning/scripts/lcb_runner/prompts/code_generation.py) | Python | 371 | 2 | 71 | 444 |
+| [Agentic-Reasoning/scripts/lcb\_runner/prompts/few\_shot\_examples/generation/func.json](/Agentic-Reasoning/scripts/lcb_runner/prompts/few_shot_examples/generation/func.json) | JSON | 12 | 0 | 0 | 12 |
+| [Agentic-Reasoning/scripts/lcb\_runner/prompts/few\_shot\_examples/generation/stdin.json](/Agentic-Reasoning/scripts/lcb_runner/prompts/few_shot_examples/generation/stdin.json) | JSON | 10 | 0 | 0 | 10 |
+| [Agentic-Reasoning/scripts/lcb\_runner/prompts/self\_repair.py](/Agentic-Reasoning/scripts/lcb_runner/prompts/self_repair.py) | Python | 288 | 17 | 48 | 353 |
+| [Agentic-Reasoning/scripts/lcb\_runner/pyext/pyext-0.7/README.rst](/Agentic-Reasoning/scripts/lcb_runner/pyext/pyext-0.7/README.rst) | reStructuredText | 41 | 2 | 18 | 61 |
+| [Agentic-Reasoning/scripts/lcb\_runner/pyext/pyext-0.7/pyext.py](/Agentic-Reasoning/scripts/lcb_runner/pyext/pyext-0.7/pyext.py) | Python | 378 | 8 | 97 | 483 |
+| [Agentic-Reasoning/scripts/lcb\_runner/pyext/pyext-0.7/setup.cfg](/Agentic-Reasoning/scripts/lcb_runner/pyext/pyext-0.7/setup.cfg) | Properties | 4 | 0 | 2 | 6 |
+| [Agentic-Reasoning/scripts/lcb\_runner/pyext/pyext-0.7/setup.py](/Agentic-Reasoning/scripts/lcb_runner/pyext/pyext-0.7/setup.py) | Python | 19 | 0 | 5 | 24 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/base\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/base_runner.py) | Python | 156 | 1 | 25 | 182 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/claude3\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/claude3_runner.py) | Python | 43 | 0 | 10 | 53 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/claude\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/claude_runner.py) | Python | 42 | 0 | 10 | 52 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/cohere\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/cohere_runner.py) | Python | 44 | 0 | 10 | 54 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/custom\_evaluator.py](/Agentic-Reasoning/scripts/lcb_runner/runner/custom_evaluator.py) | Python | 87 | 9 | 19 | 115 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/deepseek\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/deepseek_runner.py) | Python | 60 | 1 | 9 | 70 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/gemini\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/gemini_runner.py) | Python | 70 | 0 | 11 | 81 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/main.py](/Agentic-Reasoning/scripts/lcb_runner/runner/main.py) | Python | 182 | 0 | 32 | 214 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/mistral\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/mistral_runner.py) | Python | 44 | 0 | 10 | 54 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/oai\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/oai_runner.py) | Python | 58 | 1 | 8 | 67 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/parser.py](/Agentic-Reasoning/scripts/lcb_runner/runner/parser.py) | Python | 129 | 0 | 13 | 142 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/runner\_utils.py](/Agentic-Reasoning/scripts/lcb_runner/runner/runner_utils.py) | Python | 33 | 0 | 12 | 45 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/scenario\_router.py](/Agentic-Reasoning/scripts/lcb_runner/runner/scenario_router.py) | Python | 189 | 1 | 24 | 214 |
+| [Agentic-Reasoning/scripts/lcb\_runner/runner/vllm\_runner.py](/Agentic-Reasoning/scripts/lcb_runner/runner/vllm_runner.py) | Python | 57 | 2 | 6 | 65 |
+| [Agentic-Reasoning/scripts/lcb\_runner/utils/extraction\_utils.py](/Agentic-Reasoning/scripts/lcb_runner/utils/extraction_utils.py) | Python | 49 | 2 | 8 | 59 |
+| [Agentic-Reasoning/scripts/lcb\_runner/utils/multiprocess.py](/Agentic-Reasoning/scripts/lcb_runner/utils/multiprocess.py) | Python | 190 | 0 | 43 | 233 |
+| [Agentic-Reasoning/scripts/lcb\_runner/utils/path\_utils.py](/Agentic-Reasoning/scripts/lcb_runner/utils/path_utils.py) | Python | 31 | 0 | 10 | 41 |
+| [Agentic-Reasoning/scripts/lcb\_runner/utils/scenarios.py](/Agentic-Reasoning/scripts/lcb_runner/utils/scenarios.py) | Python | 6 | 0 | 3 | 9 |
+| [Agentic-Reasoning/scripts/prompts.py](/Agentic-Reasoning/scripts/prompts.py) | Python | 415 | 0 | 42 | 457 |
+| [Agentic-Reasoning/scripts/run\_agentic\_reason.py](/Agentic-Reasoning/scripts/run_agentic_reason.py) | Python | 330 | 46 | 64 | 440 |
+| [Agentic-Reasoning/scripts/tools/\_\_init\_\_.py](/Agentic-Reasoning/scripts/tools/__init__.py) | Python | 0 | 1 | 0 | 1 |
+| [Agentic-Reasoning/scripts/tools/bing\_search.py](/Agentic-Reasoning/scripts/tools/bing_search.py) | Python | 251 | 22 | 48 | 321 |
+| [Agentic-Reasoning/scripts/tools/creat\_graph.py](/Agentic-Reasoning/scripts/tools/creat_graph.py) | Python | 53 | 12 | 14 | 79 |
+| [Agentic-Reasoning/scripts/tools/duck\_search.py](/Agentic-Reasoning/scripts/tools/duck_search.py) | Python | 12 | 0 | 3 | 15 |
+| [Agentic-Reasoning/scripts/tools/run\_code.py](/Agentic-Reasoning/scripts/tools/run_code.py) | Python | 42 | 17 | 10 | 69 |
+| [Agentic-Reasoning/scripts/tools/run\_search.py](/Agentic-Reasoning/scripts/tools/run_search.py) | Python | 156 | 14 | 26 | 196 |
+| [Agentic-Reasoning/scripts/tools/temp.py](/Agentic-Reasoning/scripts/tools/temp.py) | Python | 0 | 0 | 1 | 1 |
+| [Agentic-Reasoning/scripts/utils/math\_equivalence.py](/Agentic-Reasoning/scripts/utils/math_equivalence.py) | Python | 107 | 23 | 22 | 152 |
+| [Agentic-Reasoning/scripts/utils/remote\_llm.py](/Agentic-Reasoning/scripts/utils/remote_llm.py) | Python | 118 | 1 | 12 | 131 |
+| [Agentic-Reasoning/scripts/yolo.md](/Agentic-Reasoning/scripts/yolo.md) | Markdown | 84 | 0 | 18 | 102 |
+| [Agentic-Reasoning/setup.py](/Agentic-Reasoning/setup.py) | Python | 11 | 0 | 1 | 12 |
+| [Agentic-Reasoning/temp.py](/Agentic-Reasoning/temp.py) | Python | 4 | 0 | 1 | 5 |
+
+[Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)

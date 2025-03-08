@@ -1,11 +1,11 @@
-from scripts.tools.bing_search import bing_web_search, extract_relevant_info, extract_snippet_with_context, fetch_page_content
+from tools.bing_search import bing_web_search, extract_relevant_info, extract_snippet_with_context, fetch_page_content
 from agentic_reason.generation import generate_webpage_to_reasonchain_batch
 from agentic_reason.utils import extract_reasoning_context
 import json
 from agentic_reason.config import BEGIN_SEARCH_QUERY
 
 class search_agent:
-    def __init__(self, llm, tokenizer, bing_subscription_key, bing_endpoint, top_k=10, output_records=None, all_urls_to_fetch=None, url_snippets=None, mind_map=None, search_cache=None, url_cache=None, use_jina=True, jina_api_key=None, max_doc_len=1000, max_tokens=8192, coherent=True, MAX_SEARCH_LIMIT=10, MAX_TURN=10):
+    def __init__(self, llm, tokenizer, bing_subscription_key, bing_endpoint, top_k = 10, output_records = [], all_urls_to_fetch = set(), url_snippets = {}, mind_map = None, search_cache = {}, url_cache = {}, use_jina = True, jina_api_key = None, max_doc_len = 1000, max_tokens = 8192, coherent = True, MAX_SEARCH_LIMIT = 10, MAX_TURN = 10):
         """
         Initialize the search agent
         """
@@ -27,18 +27,13 @@ class search_agent:
         self.llm = llm
         self.tokenizer = tokenizer
 
-        # Initialize with empty collections if None is provided
-        self.output_records = output_records if output_records is not None else []
-        self.all_urls_to_fetch = all_urls_to_fetch if all_urls_to_fetch is not None else set()
-        self.url_snippets = url_snippets if url_snippets is not None else {}
-        self.search_cache = search_cache if search_cache is not None else {}
-        self.url_cache = url_cache if url_cache is not None else {}
-
         self.formatted_documents = []
         self.relevant_info = []
+        self.url_snippets = {}
         self.executed_search_queries = []
         self.history = []
         self.search_count = 0
+        self.all_urls_to_fetch =  set()
 
     def insert_mind_map(self, reason):
         text_to_insert = reason.split(BEGIN_SEARCH_QUERY)[0]
@@ -84,6 +79,7 @@ class search_agent:
 
         # Filter URLs that are not cached
         urls_to_fetch_filtered = [u for u in urls_to_fetch if u not in self.url_cache]
+        cached_urls = [u for u in urls_to_fetch if u in self.url_cache]
 
         # Store info for all_urls_to_fetch and url_snippets
         for url in urls_to_fetch_filtered:
@@ -169,10 +165,10 @@ class search_agent:
         if cache_res:
             return cache_res
         
-        relevant_info, url, snippets = self.bing_search(self.bing_subscription_key, self.bing_endpoint, search_query, top_k=self.top_k)
+        relevant_info, url, snippets = self.bing_search(self.bing_subscription_key, self.bing_endpoint, search_query, top_k = self.top_k)
         context = self.get_reasoning_context(context)
-        self.fetch_urls(url)  # cache the urls with content
-        docs = self.to_doc(relevant_info)
+        urls_content = self.fetch_urls(url) # cache the urls with content
+        docs = self.to_doc(relevant_info, self.max_doc_len)
 
         # After fetching, prepare for batch processing if there are any
         webpage_analyses = generate_webpage_to_reasonchain_batch(

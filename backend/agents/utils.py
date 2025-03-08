@@ -1,6 +1,6 @@
-from pydantic_ai.result import StreamedRunResult
+from pydantic_ai.result import RunResult
 
-async def send_usage(comm, response: StreamedRunResult, agent_name: str, model_name: str = None):
+async def send_usage(comm, response: RunResult, agent_name: str, model_name: str = None):
     """Send token usage information to the frontend if available.
     
     Args:
