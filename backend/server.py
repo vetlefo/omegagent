@@ -99,6 +99,10 @@ async def listen_for_stop(comm: WebSocketCommunicator):
     Assumes that a message with {"type": "stop"} is sent.
     """
     message = await comm.receive("stop")
+    # If None is returned, the connection is likely closed
+    if message is None:
+        logger.info("No stop message received or connection closed")
+        return {"type": "stop", "content": "Connection closed"}
     return message
 
 @app.websocket("/ws")
@@ -116,11 +120,15 @@ async def websocket_endpoint(websocket: WebSocket):
         # Wait for the initial message containing the user request
         init_msg = await comm.receive("default")
         if not init_msg:
-            raise ValueError("No initial message received")
+            logger.error("No initial message received or connection was closed")
+            await comm.send("error", "Connection issue or no initial message received")
+            return
             
         user_prompt = init_msg.get("content", "")
         if not user_prompt:
-            raise ValueError("No user prompt in initial message")
+            logger.error("No user prompt in initial message")
+            await comm.send("error", "No user prompt provided in message")
+            return
 
         logger.info(f"Received user prompt: {user_prompt}")
 

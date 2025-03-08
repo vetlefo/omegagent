@@ -60,11 +60,21 @@ class WebSocketCommunicator:
 
     async def receive(self, message_type: str = "default") -> dict:
         """Receive a message of a specific type"""
+        if self._stop_event.is_set():
+            logger.error("Cannot call 'receive' once a disconnect message has been received")
+            return None
+            
         queue = self.get_queue(message_type)
         logger.debug(f"Waiting for message of type: {message_type}")
-        message = await queue.get()
-        logger.debug(f"Retrieved message from queue {message_type}: {message}")
-        return message
+        try:
+            message = await queue.get()
+            logger.debug(f"Retrieved message from queue {message_type}: {message}")
+            return message
+        except Exception as e:
+            logger.error(f"Error receiving message from queue {message_type}: {e}")
+            if "connection is closed" in str(e).lower():
+                self._stop_event.set()
+            return None
 
     async def send(self, type_: str, content: Any):
         """Send a message with a specific type"""
