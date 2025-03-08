@@ -1,5 +1,5 @@
 import dspy
-from langchain_community.chat_models import ChatOpenAI
+from langchain.chat_models import ChatOpenAI
 from utils.remote_llm import RemoteAPILLM
 import subprocess
 

@@ -1,0 +1,10 @@
+{
+  "f426e03c065de0bf281c7c40e218a905": {
+    "return": "<|COMPLETE|>",
+    "model": "gpt-4o"
+  },
+  "898740e9e48b5f487e77c682b309d11b": {
+    "return": "The text \"The quick brown fox jumps over the lazy dog.\" does not contain any entities that fit the entity types specified (organization, person, geo, event). Therefore, there are no additional entities to extract.\n\n<|COMPLETE|>",
+    "model": "gpt-4o"
+  }
+}

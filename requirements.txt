@@ -1,6 +1,8 @@
-pydantic
-fastapi
-uvicorn
+fastapi>=0.95.0
+uvicorn>=0.20.0
+dspy>=0.1.0
+pydantic>=2.0.0
+
 openai
 beautifulsoup4
 tiktoken

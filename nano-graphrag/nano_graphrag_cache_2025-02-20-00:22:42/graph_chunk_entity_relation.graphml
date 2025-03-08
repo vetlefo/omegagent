@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d7" for="edge" attr.name="order" attr.type="long" />
+  <key id="d6" for="edge" attr.name="source_id" attr.type="string" />
+  <key id="d5" for="edge" attr.name="description" attr.type="string" />
+  <key id="d4" for="edge" attr.name="weight" attr.type="double" />
+  <key id="d3" for="node" attr.name="clusters" attr.type="string" />
+  <key id="d2" for="node" attr.name="source_id" attr.type="string" />
+  <key id="d1" for="node" attr.name="description" attr.type="string" />
+  <key id="d0" for="node" attr.name="entity_type" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="&quot;STEVE JOBS&quot;">
+      <data key="d0">"PERSON"</data>
+      <data key="d1">"Steve Jobs was a co-founder of Apple Inc., a prominent figure in the technology industry, known for his visionary leadership and contributions to personal computing and consumer electronics."</data>
+      <data key="d2">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;APPLE INC.&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"Apple Inc. is a multinational technology company known for its innovative products, including the iPhone, iPad, and Mac computers, co-founded by Steve Jobs."</data>
+      <data key="d2">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;TECHNOLOGY INDUSTRY&quot;">
+      <data key="d0">"ORGANIZATION"</data>
+      <data key="d1">"The Technology Industry encompasses companies and individuals, like Apple Inc. and Steve Jobs, involved in designing, developing, and manufacturing technological products and services."</data>
+      <data key="d2">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+      <data key="d3">[{"level": 0, "cluster": 0}]</data>
+    </node>
+    <node id="&quot;IPHONE&quot;">
+      <data key="d0">"PRODUCT"</data>
+      <data key="d1">"The iPhone is a signature smartphone developed by Apple Inc., symbolizing Apple's innovation and design prowess."</data>
+      <data key="d2">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+    </node>
+    <node id="&quot;IPAD&quot;">
+      <data key="d0">"PRODUCT"</data>
+      <data key="d1">"The iPad is a tablet computer created by Apple Inc., contributing significantly to the company’s reputation and product line-up."</data>
+      <data key="d2">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+    </node>
+    <node id="&quot;MAC&quot;">
+      <data key="d0">"PRODUCT"</data>
+      <data key="d1">"Mac computers are a line of personal computers designed and marketed by Apple Inc., known for their quality and design."</data>
+      <data key="d2">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+    </node>
+    <edge source="&quot;STEVE JOBS&quot;" target="&quot;APPLE INC.&quot;">
+      <data key="d4">20.0</data>
+      <data key="d5">"Steve Jobs was a co-founder of Apple Inc., playing a crucial role in the company's inception and success as a leading technology organization."</data>
+      <data key="d6">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+      <data key="d7">1</data>
+    </edge>
+    <edge source="&quot;APPLE INC.&quot;" target="&quot;TECHNOLOGY INDUSTRY&quot;">
+      <data key="d4">9.0</data>
+      <data key="d5">"Apple Inc. is a major player in the technology industry, known for leading innovations and setting trends."</data>
+      <data key="d6">chunk-9e0ae3ff9f265f5cc7715098aeb73eb6</data>
+      <data key="d7">1</data>
+    </edge>
+  </graph>
+</graphml>

@@ -1,0 +1,6 @@
+Auto detect text files and perform LF normalization
+
+text=auto
+Force LF for all markdown files
+
+*.md text eol=lf

@@ -1,6 +1,6 @@
 import re
 from typing import Dict, Optional
-from scripts.agentic_reason.config import BEGIN_SEARCH_QUERY, BEGIN_SEARCH_RESULT
+from agentic_reason.config import BEGIN_SEARCH_QUERY, BEGIN_SEARCH_RESULT
 
 def parse_steps(text: str) -> Dict[int, str]:
     """Parse reasoning steps from text into a dictionary."""
