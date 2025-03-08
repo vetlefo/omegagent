@@ -10,7 +10,7 @@ from .collaborative_storm_utils import (
 
 from .grounded_question_answering import AnswerQuestionModule
 from .grounded_question_generation import ConvertUtteranceStyle
-from ...dataclass import ConversationTurn
+from ...interface import ConversationTurn
 from ...logging_wrapper import LoggingWrapper
 
 

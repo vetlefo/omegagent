@@ -13,7 +13,7 @@ from .modules.co_storm_agents import (
 )
 from .modules.expert_generation import GenerateExpertModule
 from .modules.warmstart_hierarchical_chat import WarmStartModule
-from ..dataclass import ConversationTurn, KnowledgeBase
+from ..interface import ConversationTurn, KnowledgeBase
 from ..encoder import Encoder
 from ..interface import LMConfigs, Agent
 from ..logging_wrapper import LoggingWrapper

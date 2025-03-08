@@ -2,7 +2,7 @@ import dspy
 from typing import List, Union
 
 from .collaborative_storm_utils import extract_and_remove_citations
-from ...dataclass import ConversationTurn
+from ...interface import ConversationTurn
 from ...storm_analysis.modules.knowledge_curation import AskQuestionWithPersona
 
 

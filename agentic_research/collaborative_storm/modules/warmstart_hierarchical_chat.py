@@ -17,8 +17,7 @@ from .callback import BaseCallbackHandler
 from .collaborative_storm_utils import _get_answer_question_module_instance
 from .expert_generation import GenerateExpertModule
 from .grounded_question_answering import AnswerQuestionModule
-from ...dataclass import ConversationTurn, KnowledgeBase
-from ...interface import LMConfigs
+from ...interface import ConversationTurn, KnowledgeBase, LMConfigs
 from ...logging_wrapper import LoggingWrapper
 from ...storm_analysis.modules.outline_generation import WritePageOutline
 from ...utils import ArticleTextProcessing as AP

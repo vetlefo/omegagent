@@ -16,8 +16,7 @@ from .collaborative_storm_utils import (
     keep_first_and_last_paragraph,
     extract_cited_storm_info,
 )
-from ...dataclass import ConversationTurn, KnowledgeBase
-from ...interface import Information
+from ...interface import ConversationTurn, KnowledgeBase, Information
 
 
 class KnowledgeBaseSummmary(dspy.Signature):

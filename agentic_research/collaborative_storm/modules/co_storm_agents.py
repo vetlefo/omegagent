@@ -12,9 +12,8 @@ from .collaborative_storm_utils import (
 from .costorm_expert_utterance_generator import CoStormExpertUtteranceGenerationModule
 from .grounded_question_generation import GroundedQuestionGenerationModule
 from .simulate_user import GenSimulatedUserUtterance
-from ...dataclass import ConversationTurn, KnowledgeBase
+from ...interface import Agent, Information, LMConfigs, ConversationTurn, KnowledgeBase
 from ...encoder import Encoder
-from ...interface import Agent, Information, LMConfigs
 from ...logging_wrapper import LoggingWrapper
 
 if TYPE_CHECKING:

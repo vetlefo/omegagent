@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from typing import List, Union, Dict, Optional
 
 from .collaborative_storm_utils import trim_output_after_hint
-from ...dataclass import KnowledgeNode, KnowledgeBase
+from ...interface import KnowledgeNode, KnowledgeBase
 from ...encoder import Encoder
 from ...interface import Information
 
