@@ -2,6 +2,7 @@ from tools.bing_search import bing_web_search, extract_relevant_info, extract_sn
 from agentic_reason.generation import generate_webpage_to_reasonchain_batch
 from agentic_reason.utils import extract_reasoning_context
 import json
+import time
 from agentic_reason.config import BEGIN_SEARCH_QUERY
 
 class search_agent:
@@ -89,7 +90,8 @@ class search_agent:
         self.executed_search_queries.append(search_query)
         self.search_count += 1
 
-        return relevant_info, url, snippets.get(url, "")
+        # Return the full lists rather than a single URL
+        return relevant_info, urls_to_fetch, snippets
 
     def get_reasoning_context(self, reason):
         """
@@ -165,10 +167,10 @@ class search_agent:
         if cache_res:
             return cache_res
         
-        relevant_info, url, snippets = self.bing_search(self.bing_subscription_key, self.bing_endpoint, search_query, top_k = self.top_k)
+        relevant_info, urls_to_fetch, snippets = self.bing_search(self.bing_subscription_key, self.bing_endpoint, search_query, top_k = self.top_k)
         context = self.get_reasoning_context(context)
-        urls_content = self.fetch_urls(url) # cache the urls with content
-        docs = self.to_doc(relevant_info, self.max_doc_len)
+        urls_content = self.fetch_urls(urls_to_fetch) # cache the urls with content
+        docs = self.to_doc(relevant_info)
 
         # After fetching, prepare for batch processing if there are any
         webpage_analyses = generate_webpage_to_reasonchain_batch(

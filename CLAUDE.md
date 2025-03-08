@@ -8,9 +8,11 @@ Currently addressing import and dependency issues before full functionality.
 - Install package: `pip install -e .`
 - Fix import issues: `export PYTHONPATH=$PYTHONPATH:$(pwd)`
 - Run tests: `pytest -v agentic_research` or specific: `pytest -v scripts/test_agentic_reasoning.py`
-- Start backend server: `python -m uvicorn backend.server:app --reload`
+- Start backend server: `python -m uvicorn backend.server:app --reload` (IMPORTANT: Use `python -m` prefix)
 - Start CLI: `python scripts/run_agentic_reason.py --remote_model gpt-4o`
 - Frontend dev: `cd frontend && npm run dev`
+- Frontend build: `cd frontend && npm run build`
+- Frontend deployment: After building, copy assets: `cp frontend/dist/assets/* frontend/assets/` and update HTML paths
 
 ## Environment Setup
 - Python 3.11.10: `conda env create -f environment.yml && conda activate agentic_reasoning`

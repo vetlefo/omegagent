@@ -79,12 +79,32 @@ class CoderAgent:
 
         # Generate code with LLM
         try:
-            with dspy.settings.context(lm=self.lm):
-                response = dspy.Predict("prompt -> code")(prompt=enhanced_prompt).code
-            return response
+            # Check if self.lm is directly callable (our wrapper) or needs DSPy context
+            if hasattr(self.lm, '__call__') and callable(getattr(self.lm, '__call__')):
+                try:
+                    # Try using the custom DSPyOpenAIWrapper
+                    return self.lm(
+                        f"Generate code for the following request. Respond with only the code, no explanation:\n\n{enhanced_prompt}"
+                    )
+                except Exception as direct_call_error:
+                    if self.logger:
+                        self.logger.error(f"Direct LM call failed: {direct_call_error}, falling back to DSPy")
+                    
+            # Try using DSPy's prediction framework
+            try:
+                with dspy.settings.context(lm=self.lm):
+                    response = dspy.Predict("prompt -> code")(prompt=enhanced_prompt).code
+                return response
+            except Exception as dspy_error:
+                if self.logger:
+                    self.logger.error(f"DSPy prediction failed: {dspy_error}")
+                
+                # Last resort - simple direct call with error handling
+                return self.lm(enhanced_prompt)
+                
         except Exception as e:
             if self.logger:
-                self.logger.error(f"Error generating code: {e}")
+                self.logger.error(f"All code generation methods failed: {e}")
             return f"# Error generating code: {e}\n\n# Placeholder implementation\ndef placeholder():\n    pass"
 
     def _search_relevant_info(self, query: str) -> List[str]:

@@ -71,7 +71,10 @@
       language: 'plaintext'
     });
     
-    ws = new WebSocket(`ws://localhost:8000/ws`);
+    // Use current origin to determine WebSocket URL (works across different ports)
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsHost = window.location.host; // includes hostname and port
+    ws = new WebSocket(`${wsProtocol}//${wsHost}/ws`);
     
     ws.onopen = () => {
       wsConnected = true;

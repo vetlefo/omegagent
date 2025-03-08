@@ -11,7 +11,8 @@ from backend.communication import WebSocketCommunicator
 from backend.agents.coder_agent import CoderAgent
 from agentic_research.collaborative_storm.discourse_manager import DiscourseManager
 try:
-    import dspy 
+    import dspy
+    from dspy.backends.openai import OpenAIBackend
 except ImportError:
     dspy = None
 from backend.utils import get_file_content
@@ -35,8 +36,36 @@ logger = logging.getLogger(__name__)
 
 # Initialize LM and coder agent
 if dspy is not None:
-    lm = dspy.OpenAI(model="gpt-4")
-    logger.info("Using dspy.OpenAI for coder agent")
+    try:
+        # Use the available DSPy 2.6.x API
+        from openai import OpenAI as OpenAIClient
+        
+        # Create a simple LM class that wraps OpenAI - compatible with CoderAgent
+        class DSPyOpenAIWrapper:
+            def __init__(self, model="gpt-4"):
+                self.model = model
+                self.client = OpenAIClient()
+                
+            def __call__(self, prompt, **kwargs):
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.7,
+                )
+                return response.choices[0].message.content
+        
+        # Initialize DSPy global configuration
+        dspy.settings.configure(lm=DSPyOpenAIWrapper(model="gpt-4"))
+        
+        # For CoderAgent we need the same model object
+        lm = DSPyOpenAIWrapper(model="gpt-4")
+        logger.info("Using custom DSPyOpenAIWrapper for coder agent")
+    except Exception as e:
+        logger.error(f"Error initializing DSPy: {e}")
+        # Fallback to pydantic_ai
+        from pydantic_ai.models.openai import OpenAIModel
+        lm = OpenAIModel("gpt-4")
+        logger.warning(f"DSPy initialization failed, using pydantic_ai.models.openai.OpenAIModel instead. Error: {e}")
 else:
     # Fallback to a mock LM if dspy is not available
     from pydantic_ai.models.openai import OpenAIModel

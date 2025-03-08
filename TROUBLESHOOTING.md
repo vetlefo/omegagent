@@ -20,6 +20,19 @@ Solutions:
 2. If still experiencing errors after installation, make sure you're running in the correct environment
 3. Check if imports in code need to be updated from `dspy_ai` to `dspy`
 
+Problem: `AttributeError: module 'dspy' has no attribute 'OpenAI'`
+
+Solutions:
+1. The codebase uses an older DSPy API which doesn't exist in newer versions
+2. Server will automatically fall back to using pydantic_ai.models.openai.OpenAIModel
+3. For a proper fix, update server.py to use the current DSPy API methods
+
+### TODO: DSPy API Upgrade
+- Investigate DSPy version compatibility issues (DSPy 2.6.10 doesn't provide expected backends)
+- Update DSPy initialization in `backend/server.py` to use the latest DSPy API
+- Consider removing dual DSPy/pydantic_ai approach for a more consistent implementation
+- Fix CoderAgent to handle the selected LM interface consistently
+
 Problem: Import errors with pydantic-ai components
 
 Solutions:
@@ -79,6 +92,25 @@ Solutions:
 3. Try running with verbose output: `python -m uvicorn backend.server:app --reload --log-level debug`
 4. Try explicitly using the Python interpreter from your conda environment: `conda activate agentic_reasoning && python -m uvicorn backend.server:app --reload`
 5. If you get "Address already in use" errors, try a different port: `python -m uvicorn backend.server:app --reload --port 8001`
+
+Problem: Frontend assets fail to load (404 errors for .js and .css files)
+
+Solutions:
+1. Ensure index.html references the correct paths for compiled assets:
+   - Use `/static/assets/[filename].js` instead of `/src/main.js`
+   - Check browser console for specific 404 errors
+2. Verify that FastAPI is correctly mounting static files:
+   - Make sure `app.mount("/static", StaticFiles(directory="frontend"), name="static")` is in server.py
+3. If using a non-standard port, update WebSocket URLs in frontend code
+4. After rebuilding frontend with `npm run build`, copy the new assets to the server-accessible location:
+   ```bash
+   # Copy new built assets to the frontend/assets directory (accessed via /static/assets/)
+   cp frontend/dist/assets/* frontend/assets/
+   
+   # Update index.html to reference the new filenames (they contain hashes)
+   cp frontend/dist/index.html frontend/index.html
+   sed -i '' 's|"/assets/|"/static/assets/|g' frontend/index.html
+   ```
 
 ### CLI Tool Issues
 
