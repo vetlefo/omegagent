@@ -1,6 +1,6 @@
-from pydantic_ai.result import RunResult
+from typing import Any
 
-async def send_usage(comm, response: RunResult, agent_name: str, model_name: str = None):
+async def send_usage(comm, response: Any, agent_name: str, model_name: str = None):
     """Send token usage information to the frontend if available.
     
     Args:
