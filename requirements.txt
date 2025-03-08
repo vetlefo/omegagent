@@ -1,31 +1,47 @@
-fastapi>=0.95.0
-uvicorn>=0.20.0
-dspy>=0.1.0
-pydantic>=2.0.0
+# Core Dependencies
+fastapi>=0.95.0  # Web framework
+uvicorn>=0.20.0  # ASGI server
+pydantic>=2.0.0  # Data validation
+python-dotenv>=1.0.0  # Environment variable management
+websockets>=12.0  # WebSocket support
 
-openai
-beautifulsoup4
-tiktoken
-pytest
-pytest-asyncio
-esprima
-websockets
-pydantic-ai
-python-dotenv
-pathspec
-#scikit-learn
-chromadb
-backoff
-langchain
-toml
-trafilatura
-langchain_text_splitters
-qdrant_client
-langchain_qdrant
-langchain_huggingface
-pandas
-duckduckgo_search
-tavily-python
-google-api-python-client
-azure-search-documents
-azure-core
+# LLM and AI Components
+dspy>=2.6.0  # DSPy for LLM interactions
+dspy-ai>=2.6.0  # DSPy AI extensions
+pydantic-ai>=0.0.30  # Pydantic AI extensions
+openai>=1.60.0  # OpenAI API
+tiktoken>=0.7.0  # Tokenization for OpenAI models
+
+# Data Processing
+beautifulsoup4>=4.12.0  # HTML parsing
+pandas>=2.2.0  # Data manipulation
+esprima>=4.0.0  # JavaScript parsing
+
+# Vector Storage
+chromadb>=0.5.0  # Vector database
+qdrant_client>=1.13.0  # Qdrant vector database
+langchain_qdrant>=0.2.0  # Langchain Qdrant integration
+
+# Language and Text Processing
+langchain>=0.3.0  # Language model chains
+langchain_text_splitters>=0.3.0  # Text splitting for langchain
+langchain_huggingface>=0.1.0  # Hugging Face integration
+trafilatura>=2.0.0  # Web content extraction
+sentence-transformers>=3.3.0  # Sentence embeddings
+
+# Search and External APIs
+duckduckgo_search>=7.3.0  # DuckDuckGo search
+google-api-python-client>=2.0.0  # Google API client
+
+# File Processing
+toml>=0.10.0  # TOML parsing
+pathspec>=0.11.0  # File path matching
+
+# Utilities
+backoff>=2.2.0  # Retries with exponential backoff
+
+# Optional Dependencies (uncomment if needed)
+#scikit-learn>=1.5.0  # Machine learning
+#tavily-python>=0.3.0  # Tavily search API
+#azure-search-documents>=11.4.0  # Azure search
+#azure-core>=1.30.0  # Azure core
