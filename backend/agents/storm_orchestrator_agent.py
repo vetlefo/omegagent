@@ -1,9 +1,13 @@
 from typing import List, Any, Dict, Optional
 import asyncio
 import os
-import difflib
-from pydantic_ai import Agent, RunContext
+from agentic_research.collaborative_storm.modules.callback import BaseCallbackHandler
+# Fix for the missing RunResult import
+from pydantic_ai.result import FinalResult as RunResult
+from agentic_research.rm import BingSearch
+from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIModel
+from pydantic_ai.result import RunContext
 from backend.agents.planner_agent import PlannerAgent, Plan
 from backend.agents.coder_agent import CoderAgent, FullCodeUpdates
 from backend.utils import build_full_context, get_file_content, get_relevant_snippets
@@ -11,12 +15,14 @@ from backend.agents.utils import send_usage
 from backend.repo_map import RepoMap
 from backend.models.shared import RelevantFiles, RelevantFile
 from backend.communication import WebSocketCommunicator
+import difflib
 
 # Import CollaborativeStorm components from agentic_research
-from agentic_research.collaborative_storm.engine import CollaborativeStormLMConfigs, RunnerArgument, CoStormRunner
+from agentic_research.collaborative_storm.engine import CollaborativeStormLMConfigs, RunnerArgument, CoStormRunner 
+from agentic_research.collaborative_storm.discourse_manager import DiscourseManager
+from agentic_research.collaborative_storm.turn_policy import TurnPolicySpec
 from agentic_research.logging_wrapper import LoggingWrapper
-from agentic_research.encoder import Encoder
-from agentic_research.dataclass import ConversationTurn
+from agentic_research.interface import ConversationTurn
 
 # Import MCP Tool for flexible model selection and Ollama integration
 from scripts.tools.mcp_tool import MCPTool
@@ -48,6 +54,7 @@ class StormOrchestratorAgent:
         use_mcp: bool = False,
         use_ollama: bool = False
     ):
+        self.discourse_manager = None  # Initialize to None, will be set in _initialize_storm if use_storm is True
         # Configure the model based on environment variables and parameters
         model_provider = os.getenv("MODEL_PROVIDER", "openai")
         model_name = os.getenv("MODEL_NAME", self.MODEL_NAME)
@@ -109,6 +116,7 @@ class StormOrchestratorAgent:
         # Initialize CollaborativeStorm components if enabled
         self.use_storm = use_storm and os.getenv("USE_STORM", "false").lower() == "true"
         self.storm_runner = None
+        self.use_discourse_manager = os.getenv("USE_DISCOURSE_MANAGER", "false").lower() == "true"
         
         if self.use_storm:
             try:
@@ -171,6 +179,10 @@ class StormOrchestratorAgent:
         lm_type = os.getenv("ENCODER_API_TYPE", "openai")
         self.storm_lm_config.init(lm_type=lm_type)
         
+        # Initialize encoder
+        from agentic_research.encoder import Encoder
+        self.encoder = Encoder(encoder_type=lm_type)
+        
         # Create RunnerArgument with default settings
         self.storm_runner_args = RunnerArgument(
             topic="code_analysis",  # Will be updated for each problem
@@ -180,14 +192,27 @@ class StormOrchestratorAgent:
             max_thread_num=3    # Limited for interactive use
         )
         
-        # Initialize encoder
-        self.encoder = Encoder(encoder_type=lm_type)
-        
         # Create CoStormRunner instance (but don't run warm_start yet)
         self.storm_runner = CoStormRunner(
             lm_config=self.storm_lm_config,
             runner_argument=self.storm_runner_args,
             logging_wrapper=self.logging_wrapper,
+        )
+        
+        # Initialize retrieval model (BingSearch)
+        self.rm = BingSearch(k=10)  # Create a BingSearch instance with k=10
+        
+        # Initialize callback handler
+        self.callback_handler = BaseCallbackHandler()  # Initialize a basic callback handler
+        
+        # Create DiscourseManager instance for conversational interactions
+        self.discourse_manager = DiscourseManager(
+            lm_config=self.storm_lm_config,
+            runner_argument=self.storm_runner_args,
+            logging_wrapper=self.logging_wrapper,
+            rm=self.rm,
+            encoder=self.encoder,
+            callback_handler=self.callback_handler
         )
     
     def _register_tools(self):
@@ -486,29 +511,213 @@ class StormOrchestratorAgent:
         """Starts the agentic process to solve the user request."""
         try:
             self.user_prompt = user_prompt  # Set the user_prompt attribute
-            
+
             # Add notice if STORM is being used
             storm_status = "with CollaborativeStorm reasoning" if self.use_storm else "with standard reasoning"
             await self.comm.send("log", f"[StormOrchestratorAgent] Starting analysis {storm_status}")
-            
-            initial_prompt = f"User Request: {self.user_prompt}\n\nRepository Context:\n{self.repo_stub}"
-            response = await self.agent.run(initial_prompt)
-            
-            if response is None or response.data is None:
-                error_msg = "Agent returned no response"
-                await self.comm.send("error", error_msg)
-                return
-            
-            # Send token usage information
-            await send_usage(self.comm, response, "orchestrator", self.MODEL_NAME)
-            
-            # If response.data is a tuple, join its parts; otherwise, use it as is
-            final_response = "".join(response.data) if isinstance(response.data, tuple) else str(response.data)
-            await self.comm.send("log", f"[Final Agent Response]:\n{final_response}")
-            await self.comm.send("completed", "Orchestration completed.")
+
+            # Check if we should use DiscourseManager for this run
+            should_use_discourse_manager = (self.use_storm and 
+                                           self.discourse_manager is not None and
+                                           self.use_discourse_manager)
+
+            if should_use_discourse_manager:
+                # Run using the DiscourseManager for a structured, multi-agent conversation
+                await self.comm.send("log", "[StormOrchestratorAgent] Using DiscourseManager for structured conversation")
+                await self.run_with_discourse_manager(user_prompt)
+                await self.comm.send("completed", "Orchestration with DiscourseManager completed.")
+            else:
+                # Otherwise, use the standard pydantic_ai Agent approach
+                initial_prompt = f"User Request: {self.user_prompt}\n\nRepository Context:\n{self.repo_stub}"
+                response = await self.agent.run(initial_prompt)
+                
+                if response is None or response.data is None:
+                    error_msg = "Agent returned no response"
+                    await self.comm.send("error", error_msg)
+                    return
+                
+                # Send token usage information
+                await send_usage(self.comm, response, "orchestrator", self.MODEL_NAME)
+                
+                # If response.data is a tuple, join its parts; otherwise, use it as is
+                final_response = "".join(response.data) if isinstance(response.data, tuple) else str(response.data)
+                await self.comm.send("log", f"[Final Agent Response]:\n{final_response}")
+                await self.comm.send("completed", "Orchestration completed.")
 
         except Exception as e:
             error_msg = f"Error during orchestration: {str(e)}"
             await self.comm.send("error", error_msg)
             logger.exception("Error in StormOrchestratorAgent.run")
             raise  # Re-raise the exception for proper logging in the server
+            
+    async def run_with_discourse_manager(self, user_prompt: str):
+        """Run the agent using the DiscourseManager for a structured, multi-agent conversation flow."""
+        try:
+            # Initialize conversation with user prompt
+            history = [
+                ConversationTurn(
+                    role="Guest",
+                    raw_utterance=user_prompt,
+                    utterance_type="Original Question"
+                )
+            ]
+            
+            # Add repository context to knowledge base
+            context_turn = ConversationTurn(
+                role="System",
+                raw_utterance=f"Repository Context:\n{self.repo_stub}",
+                utterance_type="Background Information"
+            )
+            self.discourse_manager.knowledge_base.update_from_conv_turn(
+                conv_turn=context_turn,
+                allow_create_new_node=True
+            )
+            
+            # Setup the conversation parameters
+            max_turns = int(os.getenv("MAX_STORM_TURNS", "5"))
+            turn_count = 0
+            
+            await self.comm.send("log", f"[StormOrchestratorAgent] Starting collaborative conversation with {max_turns} max turns")
+            
+            # Use DiscourseManager to manage the conversation flow
+            while turn_count < max_turns:
+                turn_count += 1
+                
+                # Get next turn policy from discourse manager
+                policy = self.discourse_manager.get_next_turn_policy(history)
+                agent_name = policy.agent.__class__.__name__
+                await self.comm.send("log", f"[Turn {turn_count}] Selected agent: {agent_name}")
+                
+                # Generate utterance based on the agent
+                utterance = await self._generate_agent_utterance(policy.agent, history)
+                
+                # Create a new conversation turn
+                new_turn = ConversationTurn(
+                    role=policy.agent.role_name,
+                    raw_utterance=utterance,
+                    utterance_type=policy.utterance_type
+                )
+                
+                # Add to history
+                history.append(new_turn)
+                
+                # Send to the front-end
+                await self.comm.send("log", f"[Turn {turn_count}: {policy.agent.role_name}] {utterance[:100]}...")
+                
+                # Check for stopping conditions
+                if "FINAL ANSWER" in utterance or turn_count >= max_turns:
+                    break
+            
+            # Generate a final summary from the conversation
+            final_summary = await self._generate_final_summary(history)
+            await self.comm.send("log", f"[Final Summary] {final_summary}")
+            
+            # Send token usage information
+            usage = self.storm_lm_config.collect_and_reset_lm_usage()
+            usage_data = {"model": "collaborative-storm-discourse", "usage": usage}
+            await self.comm.send("usage", usage_data)
+            
+            return final_summary
+        
+        except Exception as e:
+            error_msg = f"Error during discourse manager run: {str(e)}"
+            await self.comm.send("error", error_msg)
+            logger.exception("Error in StormOrchestratorAgent.run_with_discourse_manager")
+            raise
+
+    async def _generate_agent_utterance(self, agent, history):
+        """Generate an utterance from the specified agent based on conversation history."""
+        try:
+            # Check if the agent has a generate_utterance method
+            if hasattr(agent, "generate_utterance") and callable(getattr(agent, "generate_utterance")):
+                # If the agent has a generate_utterance method, use it
+                return await agent.generate_utterance(history)
+            else:
+                # Otherwise, fall back to using the model directly
+                prompt = self._build_agent_prompt(agent, history)
+                
+                # Use the appropriate model for generation
+                if self.use_mcp and hasattr(self.model, 'generate_text'):
+                    response = await self.model.generate_text(prompt, max_tokens=1000)
+                    return response
+                elif self.use_ollama and hasattr(self.model, 'generate'):
+                    response = await self.model.generate(prompt, max_tokens=1000)
+                    return response.text
+                else:
+                    # Use OpenAI model
+                    response = await self.model.generate(
+                        prompt=prompt, 
+                        max_tokens=1000,
+                        temperature=0.7
+                    )
+                    return response.text
+        except Exception as e:
+            logger.exception(f"Error generating utterance for agent {agent.__class__.__name__}")
+        return f"[Error generating response: {str(e)}]"
+
+    async def _call_agent_generate_utterance(self, agent, history, knowledge_base=None):
+        """Helper method to call agent.generate_utterance with knowledge_base if needed."""
+        try:
+            import inspect
+            sig = inspect.signature(agent.generate_utterance)
+            if 'knowledge_base' in sig.parameters:
+                return await agent.generate_utterance(knowledge_base=knowledge_base, conversation_history=history)
+            else:
+                return await agent.generate_utterance(history)
+        except Exception as e:
+            logger.exception(f"Error in _call_agent_generate_utterance for {agent.__class__.__name__}")
+            return f"[Error generating response: {str(e)}]"
+
+    def _build_agent_prompt(self, agent, history):
+        """Build a prompt for the agent based on conversation history."""
+        # Construct a formatted history string
+        history_text = "\n\n".join([
+            f"{turn.role}: {turn.raw_utterance}" for turn in history
+        ])
+        
+        # Create a system prompt for the agent
+        system_prompt = f"You are {agent.role_name}, a {agent.role_description}. Please respond to the conversation below."
+        
+        # Combine system prompt and history
+        full_prompt = f"{system_prompt}\n\nConversation History:\n{history_text}\n\n{agent.role_name}:"
+        
+        return full_prompt
+
+    async def _generate_final_summary(self, history):
+        """Generate a final summary of the conversation."""
+        try:
+            # Extract all agent utterances
+            utterances = [
+                f"{turn.role}: {turn.raw_utterance}" 
+                for turn in history
+            ]
+            
+            # Join the utterances
+            conversation_log = "\n\n".join(utterances)
+            
+            # Generate a summary prompt
+            summary_prompt = (
+                "You are an AI assistant that summarizes collaborative discussions between experts. "
+                "Below is a conversation history. Please provide a comprehensive summary of the key "
+                "points, conclusions, and recommendations from this conversation.\n\n"
+                f"Conversation History:\n{conversation_log}\n\nSummary:"
+            )
+            
+            # Generate summary using the appropriate model
+            if self.use_mcp and hasattr(self.model, 'generate_text'):
+                response = await self.model.generate_text(summary_prompt, max_tokens=1500)
+                return response
+            elif self.use_ollama and hasattr(self.model, 'generate'):
+                response = await self.model.generate(summary_prompt, max_tokens=1500)
+                return response.text
+            else:
+                # Use OpenAI model
+                response = await self.model.generate(
+                    prompt=summary_prompt, 
+                    max_tokens=1500,
+                    temperature=0.7
+                )
+                return response.text
+        except Exception as e:
+            logger.exception("Error generating final summary")
+            return f"[Error generating summary: {str(e)}]"

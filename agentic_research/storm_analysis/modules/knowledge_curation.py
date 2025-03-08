@@ -4,7 +4,11 @@ import os
 from concurrent.futures import as_completed
 from typing import Union, List, Tuple, Optional, Dict
 
-import dspy
+try:
+    import dspy
+except ImportError:
+    dspy = None
+    logging.warning("dspy module not found. Knowledge curation module functionality will be limited.")
 
 from .callback import BaseCallbackHandler
 from .persona_generator import StormPersonaGenerator

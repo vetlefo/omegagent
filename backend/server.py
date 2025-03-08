@@ -10,7 +10,10 @@ from backend.agents.storm_orchestrator_agent import StormOrchestratorAgent
 from backend.communication import WebSocketCommunicator
 from backend.agents.coder_agent import CoderAgent
 from agentic_research.collaborative_storm.discourse_manager import DiscourseManager
-import dspy
+try:
+    import dspy 
+except ImportError:
+    dspy = None
 from backend.utils import get_file_content
 import logging
 
@@ -30,7 +33,16 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-lm = dspy.OpenAI(model="gpt-4")
+# Initialize LM and coder agent
+if dspy is not None:
+    lm = dspy.OpenAI(model="gpt-4")
+    logger.info("Using dspy.OpenAI for coder agent")
+else:
+    # Fallback to a mock LM if dspy is not available
+    from pydantic_ai.models.openai import OpenAIModel
+    lm = OpenAIModel("gpt-4")
+    logger.warning("dspy not available, using pydantic_ai.models.openai.OpenAIModel instead")
+
 coder_agent = CoderAgent(lm=lm, logger=logger)
 app = FastAPI()
 
@@ -42,7 +54,7 @@ app.mount("/static", StaticFiles(directory="frontend"), name="static")
 async def get_index():
     logger.info("Received request for index page.")
     try:
-        with open("frontend/index.html", "r", encoding="utf-8") as f:
+        with open(os.path.join(os.getcwd(), "frontend/index.html"), "r", encoding="utf-8") as f:
             html_content = f.read()
         logger.info("Successfully read index.html.")
         return HTMLResponse(html_content)

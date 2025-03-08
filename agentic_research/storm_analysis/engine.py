@@ -4,7 +4,11 @@ import os
 from dataclasses import dataclass, field
 from typing import Union, Literal, Optional
 
-import dspy
+try:
+    import dspy
+except ImportError:
+    dspy = None
+    logging.warning("dspy module not found. STORM analysis engine functionality will be limited.")
 
 from .modules.article_generation import StormArticleGenerationModule
 from .modules.article_polish import StormArticlePolishingModule

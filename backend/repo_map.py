@@ -10,8 +10,28 @@ import re
 import logging
 
 # Import advanced reasoning capabilities from Agentic-Reasoning
-from agentic_research.encoder import Encoder
-from agentic_research.utils import FileIOHelper
+try:
+    from agentic_research.encoder import Encoder
+    from agentic_research.utils import FileIOHelper
+    USE_SEMANTIC_ANALYSIS = True
+except ImportError:
+    logger = logging.getLogger(__name__)
+    logger.warning("agentic_research modules could not be imported. Using simplified repo mapping without semantic capabilities.")
+    USE_SEMANTIC_ANALYSIS = False
+    
+    # Create mock Encoder class
+    class Encoder:
+        def __init__(self, *args, **kwargs):
+            pass
+        
+        def encode(self, *args, **kwargs):
+            return [0.0] * 1536  # Return dummy embeddings
+            
+    # Create mock FileIOHelper class
+    class FileIOHelper:
+        @staticmethod
+        def read_file(*args, **kwargs):
+            return ""
 
 logger = logging.getLogger(__name__)
 
